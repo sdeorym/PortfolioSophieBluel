@@ -10,27 +10,31 @@ document.addEventListener("DOMContentLoaded", function () { //The code will dero
     }
 
     promise.then(function(data) {
+        console.log(data);
         let info = "";
         let i = 0;
         let project = null; /*document.createElement("figure");*/ /*Parent figure for photos and captions.*/
         let projectTitle = null; /*document.createElement("figcaption");*/ /*The caption to the figure.*/
-        let parent = null; /*The parent element to input our DOM elements*/
-        let projectImage = null;
+        let parents = []; /*The parent element to input our DOM elements*/
+        let projectImage ="";
         let title = ""; 
-        let j = 0;
 
-        for (i = 0; i < data.length - 1; i++) {
-            parent = document.getElementById("gallery");
+        parents = document.getElementsByClassName("gallery");
+        for (i = 0; i < data.length; i++) {
             project = document.createElement("figure");
+            parents[0].appendChild(project);
         }
 
-        for (i = 0; i < data.length - 1; i++) {
-            parent = document.getElementById("figure");
-                projectImage = document.createElement("img");
-                projectImage.src = data[i].imageUrl;
-                projectImage.alt = data[i].title;
-                projectTitle = document.createElement("figcaption");
-                title.innerText = data[i].title;
-        }    
+        parents = document.getElementsByTagName("figure");
+        for (i = 0; i < data.length; i++) {            
+            projectImage = document.createElement("img");
+            parents[i].appendChild(projectImage);
+            projectImage.src = data[i].imageUrl;
+            projectImage.alt = data[i].title;
+            projectTitle = document.createElement("figcaption");
+            parents[i].appendChild(projectTitle);
+            projectTitle.innerText = data[i].title;
+        } 
+
     });
 })
