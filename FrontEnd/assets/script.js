@@ -20,9 +20,13 @@ document.addEventListener("DOMContentLoaded", function () { //The code will dero
         let projectImage ="";
         let title = "";
         let monDiv = "";
-        let categ = [];
+        let nomCategorie = [];
+        let k = "";
         let j = 0;
-        console.log(data[0].category.nom);
+        // We're goint to create an array of categories
+
+        
+        
         
 
         portfolio = document.querySelector("#portfolio");
