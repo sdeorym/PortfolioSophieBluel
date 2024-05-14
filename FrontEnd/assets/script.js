@@ -21,9 +21,14 @@ document.addEventListener("DOMContentLoaded", function () { //The code will dero
         let title = "";
         let monDiv = "";
         let nomsCategories = [];
-        let filtrage = "";
-        let boutonade = "";
-        // Iterar sobre todos los elementos en data
+        let container = "";
+        let boutons = "";
+        let boutonClick = "";
+        let activeChoice = [];
+        let choix = "";
+        let filteredData;
+
+        // We create the categories name lists to create the buttons.
         for (i = 0; i < data.length; i++) {
                 data.forEach((item) => {
                 // We put the category names within an array
@@ -37,44 +42,59 @@ document.addEventListener("DOMContentLoaded", function () { //The code will dero
         let nomsButtons = Array.from(nomsProjets);
         nomsButtons.unshift("Tous");
 
-        console.log(nomsButtons);
-
+        //We select id portfolio to create h2, buttons and gallery
         portfolio = document.querySelector("#portfolio");
 
-        //I create element <h2>Mes Projets</h2
+        //I create element <h2>Mes Projets</h2>
         project = document.createElement("h2");
         project.innerText = "Mes Projets";
         portfolio.appendChild(project);
 
-        boutonade = document.createElement("div");
-        boutonade.classList.add("filters");
-        portfolio.appendChild(boutonade);
+        //I create a div to contain my buttons
+        container = document.createElement("div");
+        container.classList.add("filters");
+        portfolio.appendChild(container);
 
         for (i = 0; i < nomsButtons.length; i++){
-            filtrage = document.createElement("button");
-            filtrage.innerText = nomsButtons[i];
-            portfolio.appendChild(filtrage);
+            boutons = document.createElement("button");
+            boutons.innerText = nomsButtons[i];
+            container.appendChild(boutons);
         }
 
-        //I create element <div class="gallery">Mes Projets</div>
-        monDiv = document.createElement("div");
-        monDiv.classList.add("gallery");
-        portfolio.appendChild(monDiv);
+        boutonClick = document.querySelectorAll("#portfolio .filters button");
+        boutonClick.forEach (button => {
+            button.addEventListener("click", () => {
+                choix = button.innerText;
 
-        parents = document.querySelector("#portfolio .gallery");
-        for (i = 0; i < data.length; i++) {
-            let project = document.createElement("figure");
-            parents.appendChild(project);
+                if (choix === "Tous") {
+                    filteredData = data;
 
-            let projectImage = document.createElement("img");
-            projectImage.src = data[i].imageUrl;
-            projectImage.alt = data[i].title;
-            project.appendChild(projectImage);
+                } else {
+                    filteredData = data.filter(item => item.category.name === choix);
+                }
+                //The gallery content is reseted to 0
+                parents.innerHTML = '';
 
-            let projectTitle = document.createElement("figcaption");
-            projectTitle.innerText = data[i].title;
-            project.appendChild(projectTitle);
-        }
+                //We generate a gallery for each button
+                monDiv = document.createElement("div");
+                monDiv.classList.add("gallery");
+                portfolio.appendChild(monDiv);
+                parents = document.querySelector("#portfolio .gallery");
+                for (i = 0; i < filteredData.length; i++) {
+                    let project = document.createElement("figure");
+                    parents.appendChild(project);
+        
+                    let projectImage = document.createElement("img");
+                    projectImage.src = filteredData[i].imageUrl;
+                    projectImage.alt = filteredData[i].title;
+                    project.appendChild(projectImage);
+        
+                    let projectTitle = document.createElement("figcaption");
+                    projectTitle.innerText = filteredData[i].title;
+                    project.appendChild(projectTitle);
+                }
+            });
+        })
 
     });
-})
+});
