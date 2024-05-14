@@ -20,14 +20,24 @@ document.addEventListener("DOMContentLoaded", function () { //The code will dero
         let projectImage ="";
         let title = "";
         let monDiv = "";
-        let nomCategorie = [];
-        let k = "";
-        let j = 0;
-        // We're goint to create an array of categories
+        let nomsCategories = [];
+        let filtrage = "";
+        let boutonade = "";
+        // Iterar sobre todos los elementos en data
+        for (i = 0; i < data.length; i++) {
+                data.forEach((item) => {
+                // We put the category names within an array
+                nomsCategories.push(item.category.name);
+            });
+        }
 
-        
-        
-        
+        let nomsProjets = new Set(nomsCategories);
+
+        // Convertir el conjunto de nuevo a un array
+        let nomsButtons = Array.from(nomsProjets);
+        nomsButtons.unshift("Tous");
+
+        console.log(nomsButtons);
 
         portfolio = document.querySelector("#portfolio");
 
@@ -35,6 +45,16 @@ document.addEventListener("DOMContentLoaded", function () { //The code will dero
         project = document.createElement("h2");
         project.innerText = "Mes Projets";
         portfolio.appendChild(project);
+
+        boutonade = document.createElement("div");
+        boutonade.classList.add("filters");
+        portfolio.appendChild(boutonade);
+
+        for (i = 0; i < nomsButtons.length; i++){
+            filtrage = document.createElement("button");
+            filtrage.innerText = nomsButtons[i];
+            portfolio.appendChild(filtrage);
+        }
 
         //I create element <div class="gallery">Mes Projets</div>
         monDiv = document.createElement("div");

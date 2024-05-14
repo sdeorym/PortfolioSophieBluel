@@ -125,7 +125,21 @@ li:hover {
 	text-align: center;
 	margin-bottom: 1em;
 }
-#portfolio button {
+
+.filters {
+	display: flexbox;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	width: 585px;
+	height: 38px;
+	top: 812px;
+	left: 427px;
+	gap: 0px;
+	border-radius: 60px 0px 0px 0px;
+	border: 1px 0px 0px 0px;
+	opacity: 0px;
+}
+#portfolio .filters button {
 	Height: 37px;
 	Top: 813px;
 	Left: 427px;
