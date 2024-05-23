@@ -7,24 +7,32 @@ document.addEventListener("DOMContentLoaded", function () { //The code will deve
         const data = await response.json();
         console.log(data);
         return data;
+
+        //This function connects with the API
     }
 
     promise.then(function(data) {
+        //So when the connection is done we get our flamboyant variables.
         console.log(data);
         let i = 0;
-        let portfolio = "";
+        
+        //Variables for DOM creation.
+        let portfolio = ""; 
         let project; /*document.createElement("figure");*/ /*Parent figure for photos and captions.*/
         let projectTitle; /*document.createElement("figcaption");*/ /*The caption to the figure.*/
         let parents = []; /*The parent element to input our DOM elements*/
-        let projectImage;
-        let createdNewDiv;
-        let categoryNames = [];
         let container = "";
         let buttons = "";
-        let buttonClick = "";
+        let projectImage;
+
+        //Filtering and buttons
+        let categoryNames = [];  
+        let buttonClick = [];
         let choice = "";
         let filteredData;
         let portfolioData;
+        let projectNames;
+        let buttonNames;
 
         // We create the categories name lists to create the buttons.
         for (i = 0; i < data.length; i++) {
@@ -34,11 +42,11 @@ document.addEventListener("DOMContentLoaded", function () { //The code will deve
             });
         }
 
-        let projectNames = new Set(categoryNames);
+        projectNames = new Set(categoryNames);
 
         /* We put categoryNames in an array to make the buttons then add a category 
         'Tous' at the beginning of the array so we have all filter buttons*/
-        let buttonNames = Array.from(projectNames);
+        buttonNames = Array.from(projectNames);
         buttonNames.unshift("Tous");
 
         //We select id portfolio to create h2, buttons and gallery
@@ -65,13 +73,19 @@ document.addEventListener("DOMContentLoaded", function () { //The code will deve
 
         //Filter choice and call to function.
         buttonClick = document.querySelectorAll("#portfolio .filters button");
+
+        buttonClick[0].classList.add("active"); 
+
+        projectGallery(portfolioData);       
+
         buttonClick.forEach (button => {
             button.addEventListener("click", () => {
+                buttonClick.forEach(button => button.classList.remove("active"));
+                button.classList.add("active");
                 choice = button.innerText;
 
                 if (choice === "Tous") {
                     filteredData = data;
-
                 } else {
                     filteredData = data.filter(item => item.category.name === choice);
                 }
@@ -97,15 +111,15 @@ document.addEventListener("DOMContentLoaded", function () { //The code will deve
         portfolio.appendChild(newGallery);
 
         portfolioData.forEach(item => {
-            const project = document.createElement("figure");
+            project = document.createElement("figure");
             newGallery.appendChild(project);
 
-            const projectImage = document.createElement("img");
+            projectImage = document.createElement("img");
             projectImage.src = item.imageUrl;
             projectImage.alt = item.title;
             project.appendChild(projectImage);
 
-            const projectTitle = document.createElement("figcaption");
+            projectTitle = document.createElement("figcaption");
             projectTitle.innerText = item.title;
             project.appendChild(projectTitle);
         });
