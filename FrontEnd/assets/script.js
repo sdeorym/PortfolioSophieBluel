@@ -13,13 +13,11 @@ document.addEventListener("DOMContentLoaded", function () { //The code will deve
 
     promise.then(function(data) {
         //So when the connection is done we get our flamboyant variables.
-        console.log(data);
         let i = 0;
         
         //Variables for DOM creation.
         let portfolio = ""; 
-        let project; /*document.createElement("figure");*/ /*Parent figure for photos and captions.*/
-        let projectTitle; /*document.createElement("figcaption");*/ /*The caption to the figure.*/
+        
         let parents = []; /*The parent element to input our DOM elements*/
         let container = "";
         let buttons = "";
@@ -35,13 +33,11 @@ document.addEventListener("DOMContentLoaded", function () { //The code will deve
         let buttonNames;
 
         // We create the categories name lists to create the buttons.
-        for (i = 0; i < data.length; i++) {
-                data.forEach((item) => {
-                // We put the category names within an array
-                categoryNames.push(item.category.name);
-            });
-        }
-
+        data.forEach((item) => {
+            // We put the category names within an array
+            categoryNames.push(item.category.name);
+        });
+        
         projectNames = new Set(categoryNames);
 
         /* We put categoryNames in an array to make the buttons then add a category 
@@ -51,7 +47,20 @@ document.addEventListener("DOMContentLoaded", function () { //The code will deve
 
         //We select id portfolio to create h2, buttons and gallery
         portfolio = document.querySelector("#portfolio");
+        
+        /*We eliminate the content of the DOM to insert it from the database;
+        it won't work if we don't connect with the database and buttons won't appear either*/
+        let h2 = portfolio.querySelector("h2");
+        if (h2) {
+            portfolio.removeChild(h2);
+        }
 
+        let gallery = portfolio.querySelector("div.gallery");
+        if (gallery) {
+            portfolio.removeChild(gallery);
+        }
+
+        /*Now we create the DOM content dinamically*/
         //I create element <h2>Mes Projets</h2>
         project = document.createElement("h2");
         project.innerText = "Mes Projets";
@@ -68,8 +77,6 @@ document.addEventListener("DOMContentLoaded", function () { //The code will deve
             buttons.innerText = buttonNames[i];
             container.appendChild(buttons);
         }
-
-        projectGallery(portfolioData);
 
         //Filter choice and call to function.
         buttonClick = document.querySelectorAll("#portfolio .filters button");
@@ -99,6 +106,9 @@ document.addEventListener("DOMContentLoaded", function () { //The code will deve
 
     //This function displays the gallery once called on loading or pressing button.
     function projectGallery(portfolioData) {
+
+        let project; /*document.createElement("figure");*/ /*Parent figure for photos and captions.*/
+        let projectTitle; /*document.createElement("figcaption");*/ /*The caption to the figure.*/
         // Clear existing gallery content
         const existingGallery = document.querySelector("#portfolio .gallery");
         if (existingGallery) {

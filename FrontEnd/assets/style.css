@@ -53,6 +53,9 @@ body {
 	font-family: 'Work Sans' ;
 	font-size: 14px;
 }
+.loginpage {
+	max-height: 1024px;
+}
 header {
 	display: flex;
 	justify-content: space-between;
