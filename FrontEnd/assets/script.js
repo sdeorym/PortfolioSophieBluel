@@ -5,7 +5,6 @@ document.addEventListener("DOMContentLoaded", function () { //The code will deve
     async function fetchData () {
         const response = await fetch("http://localhost:5678/api/works");
         const data = await response.json();
-        console.log(data);
         return data;
 
         //This function connects with the API
