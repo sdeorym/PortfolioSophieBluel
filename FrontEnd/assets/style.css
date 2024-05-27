@@ -149,6 +149,7 @@ li:hover {
 	line-height: 19.2px;
 	text-align: center;
 	color: #1D6154;
+	cursor: pointer;
 }
 .filters button.active {
 	background-color: #1D6154;
