@@ -1,39 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () { //The code will develop within this function, once the DOM is completely loaded.
     
+    let promise = fetchData();
     let connection;
-
-    //We obtain data from the form on the login page.
-    const form = document.getElementById('loginForm');
-
-    form.addEventListener('submit', function (event) {
-        event.preventDefault(); // We won't be sending the form by default
-
-        //We get the specific data from the form
-        let email = document.getElementById('email').value;
-        let password = document.getElementById('password').value;
-        let token = localStorage.getItem('authToken');
-
-        fetchData(email, password).then(function (connection) {
-            switch (connection.status) {
-                case 500:
-                    alert("Erreur du serveur");
-                    break;
-                case 404:
-                    alert("Utilisateur inconnu.");
-                    break;
-                case 401:
-                    alert("Utilisateur non autorisé");
-                    break;
-                case 200:
-                    window.location.href = 'index.html';
-                    break;
-                default:
-                    alert('Error desconocido');
-                    window.location.href = '/login.html';
-                    break;
-            }
-        });
-    });
 
     //We contact the API.
     async function fetchData () {
@@ -62,5 +30,43 @@ document.addEventListener("DOMContentLoaded", function () { //The code will deve
         }
 
     }
+
+    //We obtain data from the form on the login page.
+    const form = document.getElementById('loginForm');
+
+    form.addEventListener('submit', function (event) {
+        event.preventDefault(); // We won't be sending the form by default
+
+        //We get the specific data from the form
+        let email = document.getElementById('email').value;
+        let password = document.getElementById('password').value;
+        let token = localStorage.getItem('authToken');
+
+        promise.then(function (connection) {
+            switch (connection.status) {
+                case 500:
+                    alert("Erreur du serveur");
+                    console.log("naranjas de la china");
+                    break;
+                case 404:
+                    alert("Utilisateur inconnu.");
+                    console.log("naranjas de la china, mandarinas");
+                    break;
+                case 401:
+                    alert("Utilisateur non autorisé");
+                    console.log("naranjas de la china, tangerines");
+                    break;
+                case 200:
+                    window.location.href = './index.html';
+                    console.log("naranjas de la china, pomelos");
+                    break;
+                default:
+                    alert('Error desconocido');
+                    console.log("naranjas de la china, limones");
+                    window.location.href = './login.html';
+                    break;
+            }
+        });
+    });
 
 });
