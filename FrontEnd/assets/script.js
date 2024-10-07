@@ -2,6 +2,16 @@ document.addEventListener("DOMContentLoaded", function () { //The code will deve
     
     let promise = fetchData ();
 
+    var token = localStorage.getItem('authToken');
+    if (token) {
+        console.log("Token recuperado:", token);
+        //If the token is active, we manipulate the DOM to include the black header and the modifier button.
+        adminMode ();
+    } else {
+        console.log("No se encontró el token.");
+    }
+
+
     async function fetchData () {
         const response = await fetch("http://localhost:5678/api/works");
         const data = await response.json();
@@ -17,7 +27,6 @@ document.addEventListener("DOMContentLoaded", function () { //The code will deve
         //Variables for DOM creation.
         let portfolio = ""; 
         
-        let parents = []; /*The parent element to input our DOM elements*/
         let container = "";
         let buttons = "";
         let projectImage;
@@ -29,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function () { //The code will deve
         let filteredData;
         let portfolioData;
         let projectNames;
-        let buttonNames;
+        let buttonNames;        
 
         // We create the categories name lists to create the buttons.
         data.forEach((item) => {
@@ -132,6 +141,23 @@ document.addEventListener("DOMContentLoaded", function () { //The code will deve
             projectTitle.innerText = item.title;
             project.appendChild(projectTitle);
         });
+    }
+
+    function adminMode () {
+        let edModeHeader;
+        let edModeBar;
+
+        console.log('Ola ke ase');
+        // 1. Seleccionar el elemento <header> del DOM
+        edModeheader = document.querySelector('header');
+
+        // 2. Crear un nuevo elemento, por ejemplo, un <h1>
+        edModeBar = document.createElement('p');
+
+        // 3. Agregar contenido al nuevo elemento <h1>
+
+        // 4. Agregar el nuevo elemento <h1> como child del <header>
+        edModeheader.appendChild(edModeBar);
     }
 
 });

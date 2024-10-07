@@ -64,6 +64,19 @@ header {
 	justify-content: space-between;
 	margin: 50px 0
 }
+
+.edition_bar {
+    width: 1440px;
+	height: 59px;             /* Ocupa todo el ancho de la página */
+    background-color: #000;  /* Color de fondo */
+    color: #FFF;            /* Color del texto */
+    text-align: center;      /* Centra el texto */
+}
+
+h1 {
+	margin-top: 97px;
+}
+
 section {
 	margin: 50px 0
 }
