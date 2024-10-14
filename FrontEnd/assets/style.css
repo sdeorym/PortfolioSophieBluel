@@ -25,6 +25,9 @@ body {
 ol, ul {
 	list-style: none;
 }
+/*.indexhead {
+	width: 1440px;
+}*/
 blockquote, q {
 	quotes: none;
 }
@@ -52,17 +55,22 @@ body {
 	margin-left: calc(50% - 50vw);
 	display: flex; 
 	justify-content: center; 
-	align-items: center; 
+	align-items: center;
+	text-align: center;
+	display: none;
 }
 
 .edition_bar_text {
 	text-align: center; /* Asegura que el texto esté centrado */
+	display: none;
 }
 
 header {
 	display: flex;
 	justify-content: space-between;
-	margin: 50px 0
+	margin: 50px 0;
+	width: 1140px;
+	height: 42px;
 }
 section {
 	margin: 50px 0
@@ -99,6 +107,9 @@ nav li {
 li:hover {
 	color: #B1663C;
 }
+.logout_login {
+	display: none;
+}	
 #introduction {
 	display: flex;
 	align-items: center;
@@ -203,7 +214,16 @@ footer nav ul {
 	justify-content: flex-end;
 	margin: 2em
 }
-
+.loginnav {
+	font-weight: 600;
+}
 .loginfooter {
 	margin-top: 250px;
+}
+
+.login_forgotten_password {
+	color: #3D3D3D;
+	font-size: 14px;
+	text-align: center;
+	text-decoration: underline;
 }

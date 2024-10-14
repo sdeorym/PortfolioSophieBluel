@@ -7,7 +7,6 @@ document.addEventListener('DOMContentLoaded', function () {
         //let token = localStorage.getItem('authToken');
 
         try {
-
             //We compare the introduced mail & passwords with those in the API.
             const response = await fetch('http://localhost:5678/api/users/login', {
                 method: 'POST',
@@ -43,18 +42,20 @@ document.addEventListener('DOMContentLoaded', function () {
                     token = data.token;
                     window.location.href = './index.html';
                     console.log('naranjas de la china, pomelos');
-                    break;
+                    return token;
                 default:
                     alert('Erreur unconnue');
                     console.log('naranjas de la china, limones');
                     window.location.href = './login.html';
                     break;
-            }            
+            }
+            
+            return null;
         }
 
         catch (error) {
             console.log('Erreur du serveur', error);
-            return { status: 500, data: null }; 
+            return null; 
         }
     }
 
@@ -68,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function () {
         let email = document.getElementById('email').value;
         let password = document.getElementById('password').value;
         
-        login(email, password);
+        token = login(email, password);
     });
 
 });

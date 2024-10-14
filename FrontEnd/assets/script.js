@@ -2,7 +2,9 @@ document.addEventListener("DOMContentLoaded", function () { //The code will deve
     
     let promise = fetchData ();
 
-    var token = localStorage.getItem('authToken');
+    token = localStorage.getItem('authToken');
+    console.log(token);
+
     if (token) {
         console.log("Token recuperado:", token);
         //If the token is active, we manipulate the DOM to include the black header and the modifier button.
@@ -93,6 +95,9 @@ document.addEventListener("DOMContentLoaded", function () { //The code will deve
 
         projectGallery(portfolioData);       
 
+        let callLogoutLogin = document.querySelector('.logout_login');
+        callLogoutLogin.addEventListener('click', loggingOut);
+
         buttonClick.forEach (button => {
             button.addEventListener("click", () => {
                 buttonClick.forEach(button => button.classList.remove("active"));
@@ -109,6 +114,8 @@ document.addEventListener("DOMContentLoaded", function () { //The code will deve
             projectGallery(portfolioData);
             });
         })
+
+        
     });
 
 
@@ -144,20 +151,42 @@ document.addEventListener("DOMContentLoaded", function () { //The code will deve
     }
 
     function adminMode () {
+        loggingIn ();
+        
+        /*console.log("They're eating the dogs");
+        
+        edModeheader = document.querySelector('header');
+        
+        console.log('Ola ke ase');
+
         let edModeHeader;
         let edModeBar;
+        let ;*/
+        
+        /*loginLogout = document.querySelector('.login_logout');
+        loginLogout.textContent = "logout";
 
-        console.log('Ola ke ase');
-        // 1. Seleccionar el elemento <header> del DOM
-        edModeheader = document.querySelector('header');
-
-        // 2. Crear un nuevo elemento, por ejemplo, un <h1>
-        edModeBar = document.createElement('p');
-
-        // 3. Agregar contenido al nuevo elemento <h1>
-
-        // 4. Agregar el nuevo elemento <h1> como child del <header>
-        edModeheader.appendChild(edModeBar);
+        console.log(loginLogout);
+        /*
+        document.querySelector('.edition_bar').style.display = 'block';
+        document.querySelector('.edition_bar_text').style.display = 'block';        
+        //document.querySelector('.filters').remove();*/
     }
 
+    function loggingIn () { //What happens when we enter edition mode.
+        let loginLogout = document.querySelector('.login_logout');
+        loginLogout.style.display = 'none'; 
+        let logoutLogin = document.querySelector('.logout_login');
+        logoutLogin.style.display = 'block';
+        return;
+    }
+
+    function loggingOut () { //What happens when we exit edition mode.
+        let loginLogout = document.querySelector('.login_logout');
+        loginLogout.style.display = 'block'; 
+        let logoutLogin = document.querySelector('.logout_login');
+        logoutLogin.style.display = 'none';
+        localStorage.removeItem('authToken');
+        return;
+    }
 });
