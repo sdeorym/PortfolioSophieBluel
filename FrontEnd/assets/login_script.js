@@ -1,10 +1,9 @@
 //The code will develop within this function, once the DOM is completely loaded:
 document.addEventListener('DOMContentLoaded', function () {     
-    var token;
 
     //We contact the API (asynchrone function).
     async function login(email, password) {
-        //let token = localStorage.getItem('authToken');
+        let token = localStorage.getItem('authToken');
 
         try {
             //We compare the introduced mail & passwords with those in the API.
@@ -21,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             //We process the response as JSON only if the request was successful
             const data = await response.json();
-        
+
             //Different response options
             switch (response.status) {
                 case 500:
@@ -41,15 +40,14 @@ document.addEventListener('DOMContentLoaded', function () {
                     localStorage.setItem('authToken', data.token);
                     token = data.token;
                     window.location.href = './index.html';
-                    console.log('naranjas de la china, pomelos');
+                    console.log(token);
                     return token;
                 default:
                     alert('Erreur unconnue');
                     console.log('naranjas de la china, limones');
                     window.location.href = './login.html';
                     break;
-            }
-            
+            }           
             return null;
         }
 
@@ -70,6 +68,6 @@ document.addEventListener('DOMContentLoaded', function () {
         let password = document.getElementById('password').value;
         
         token = login(email, password);
+        console.log(token);
     });
-
 });

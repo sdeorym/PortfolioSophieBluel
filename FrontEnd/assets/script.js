@@ -1,18 +1,36 @@
+let loginLogout = document.querySelector('.login_logout');
+let logoutLogin = document.querySelector('.logout_login');
+
+function loggingOut () { //What happens when we exit edition mode.
+    console.log("Hola, estoy en logout, el if ha pasado por sus pistolas.");
+    loginLogout.style.display = 'block'; 
+    logoutLogin.style.display = 'none';
+    document.querySelector('.edition_bar').style.display = 'none';
+    document.querySelector('.edition_bar_text').style.display = 'none';
+    //document.querySelector('.modify_projects').style.display = 'none';
+    /*document.querySelector('.filters').style.display = 'block';*/        
+    localStorage.removeItem('authToken');
+    console.log(localStorage);
+    return false;
+}
+
 document.addEventListener("DOMContentLoaded", function () { //The code will develop within this function, once the DOM is completely loaded.
     
     let promise = fetchData ();
-
-    token = localStorage.getItem('authToken');
+    var project; /*document.createElement("figure");*/ /*Parent figure for photos and captions.*/
+    var projectTitle; /*document.createElement("figcaption");*/ /*The caption to the figure.*/
+    let projectImage;
+        
+    let token = localStorage.getItem('authToken');
     console.log(token);
 
     if (token) {
-        console.log("Token recuperado:", token);
+        console.log("Token found:", token);
         //If the token is active, we manipulate the DOM to include the black header and the modifier button.
-        adminMode ();
+        loggingIn ();
     } else {
-        console.log("No se encontró el token.");
+        console.log("Token not found.");
     }
-
 
     async function fetchData () {
         const response = await fetch("http://localhost:5678/api/works");
@@ -31,7 +49,6 @@ document.addEventListener("DOMContentLoaded", function () { //The code will deve
         
         let container = "";
         let buttons = "";
-        let projectImage;
 
         //Filtering and buttons
         let categoryNames = [];  
@@ -40,7 +57,7 @@ document.addEventListener("DOMContentLoaded", function () { //The code will deve
         let filteredData;
         let portfolioData;
         let projectNames;
-        let buttonNames;        
+        let buttonNames;       
 
         // We create the categories name lists to create the buttons.
         data.forEach((item) => {
@@ -58,7 +75,7 @@ document.addEventListener("DOMContentLoaded", function () { //The code will deve
         //We select id portfolio to create h2, buttons and gallery
         portfolio = document.querySelector("#portfolio");
         
-        /*We eliminate the content of the DOM to insert it from the database;
+        /* We eliminate the content of the DOM to insert it from the database;
         it won't work if we don't connect with the database and buttons won't appear either*/
         let h2 = portfolio.querySelector("h2");
         if (h2) {
@@ -95,9 +112,6 @@ document.addEventListener("DOMContentLoaded", function () { //The code will deve
 
         projectGallery(portfolioData);       
 
-        let callLogoutLogin = document.querySelector('.logout_login');
-        callLogoutLogin.addEventListener('click', loggingOut);
-
         buttonClick.forEach (button => {
             button.addEventListener("click", () => {
                 buttonClick.forEach(button => button.classList.remove("active"));
@@ -113,17 +127,12 @@ document.addEventListener("DOMContentLoaded", function () { //The code will deve
             portfolioData = filteredData;
             projectGallery(portfolioData);
             });
-        })
-
-        
+        })        
     });
-
 
     //This function displays the gallery once called on loading or pressing button.
     function projectGallery(portfolioData) {
 
-        let project; /*document.createElement("figure");*/ /*Parent figure for photos and captions.*/
-        let projectTitle; /*document.createElement("figcaption");*/ /*The caption to the figure.*/
         // Clear existing gallery content
         const existingGallery = document.querySelector("#portfolio .gallery");
         if (existingGallery) {
@@ -150,43 +159,19 @@ document.addEventListener("DOMContentLoaded", function () { //The code will deve
         });
     }
 
-    function adminMode () {
-        loggingIn ();
-        
-        /*console.log("They're eating the dogs");
-        
-        edModeheader = document.querySelector('header');
-        
-        console.log('Ola ke ase');
-
-        let edModeHeader;
-        let edModeBar;
-        let ;*/
-        
-        /*loginLogout = document.querySelector('.login_logout');
-        loginLogout.textContent = "logout";
-
-        console.log(loginLogout);
-        /*
-        document.querySelector('.edition_bar').style.display = 'block';
-        document.querySelector('.edition_bar_text').style.display = 'block';        
-        //document.querySelector('.filters').remove();*/
-    }
-
-    function loggingIn () { //What happens when we enter edition mode.
-        let loginLogout = document.querySelector('.login_logout');
-        loginLogout.style.display = 'none'; 
-        let logoutLogin = document.querySelector('.logout_login');
-        logoutLogin.style.display = 'block';
-        return;
-    }
-
-    function loggingOut () { //What happens when we exit edition mode.
-        let loginLogout = document.querySelector('.login_logout');
-        loginLogout.style.display = 'block'; 
-        let logoutLogin = document.querySelector('.logout_login');
-        logoutLogin.style.display = 'none';
-        localStorage.removeItem('authToken');
-        return;
-    }
+    //Ver por qué pelotas no está bien hecho el addEventListener, y si mejorándolo funciona.
+    let callLogoutLogin = document.querySelector('.logout_login');
+    console.log(callLogoutLogin);
+    callLogoutLogin.addEventListener('click', loggingOut);
 });
+
+function loggingIn () { //What happens when we enter edition mode.
+    console.log("Hola, estoy en login, el if ha pasado por sus pistolas.");
+    loginLogout.style.display = 'none'; 
+    logoutLogin.style.display = 'block';
+    document.querySelector('.edition_bar').style.display = 'block';
+    document.querySelector('.edition_bar_text').style.display = 'block';
+    //document.querySelector('.modify_projects').style.display = 'block';
+    /*document.querySelector('.filters').style.display = 'none';*/
+    return;
+}

@@ -227,3 +227,17 @@ footer nav ul {
 	text-align: center;
 	text-decoration: underline;
 }
+
+.modify_projects {
+	font-family: Work Sans;
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 16.42px;
+	text-align: center;
+	color: #000;
+	/*display: none;*/
+}
+
+.projects_Container {
+	display: inline;
+}
