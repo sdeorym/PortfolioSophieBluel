@@ -63,6 +63,7 @@ body {
 .edition_bar_text {
 	text-align: center; /* Asegura que el texto esté centrado */
 	display: none;
+	padding: 20px 0;
 }
 
 header {
@@ -228,6 +229,10 @@ footer nav ul {
 	text-decoration: underline;
 }
 
+.projectTitle {
+	display: inline; /*.modify_projects will be on the very same line*/
+	margin-left: 25px; 
+}
 .modify_projects {
 	font-family: Work Sans;
 	font-weight: 400;
@@ -235,9 +240,5 @@ footer nav ul {
 	line-height: 16.42px;
 	text-align: center;
 	color: #000;
-	/*display: none;*/
-}
-
-.projects_Container {
-	display: inline;
+	display: none;
 }

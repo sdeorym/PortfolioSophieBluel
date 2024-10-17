@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     //We contact the API (asynchrone function).
     async function login(email, password) {
-        let token = localStorage.getItem('authToken');
+        let token;
 
         try {
             //We compare the introduced mail & passwords with those in the API.
