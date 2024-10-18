@@ -1,18 +1,5 @@
 let loginLogout = document.querySelector('.login_logout');
 let logoutLogin = document.querySelector('.logout_login');
-//let filtersBar = document.getElementById('filters');
-
-function loggingOut () { //What happens when we exit edition mode.
-    loginLogout.style.display = 'block'; 
-    logoutLogin.style.display = 'none';
-    document.querySelector('.edition_bar').style.display = 'none';
-    document.querySelector('.edition_bar_text').style.display = 'none';
-    document.querySelector('.modify_projects').style.display = 'none';
-    /*document.getElementById('idfilters').style.visibility = 'visible';*/        
-    localStorage.removeItem('authToken');
-    console.log(localStorage);
-    return false;
-}
 
 document.addEventListener("DOMContentLoaded", function () { //The code will develop within this function, once the DOM is completely loaded.
     
@@ -22,11 +9,11 @@ document.addEventListener("DOMContentLoaded", function () { //The code will deve
     let projectImage;
 
     async function fetchData () {
+        //This function connects with the API
         const response = await fetch("http://localhost:5678/api/works");
         const data = await response.json();
         return data;
-
-        //This function connects with the API
+        
     }
 
     promise.then(function(data) {
@@ -45,13 +32,12 @@ document.addEventListener("DOMContentLoaded", function () { //The code will deve
         let token = localStorage.getItem('authToken');
 
         if (token) {
-            console.log("Token found:", token);
-            //If the token is active, we manipulate the DOM to include the black header and the modifier button.
+            /*If the token is active, we manipulate the DOM to include the black header and the
+            modifier button.*/
             loggingIn ();
         } else {
-            console.log("Token not found.");
+            //It it is not active, we go directly to generate the filters.
             filterForging (data);
-            console.log("no hay log que valga", token);
         }
     
         let portfolioData = data;
@@ -60,62 +46,56 @@ document.addEventListener("DOMContentLoaded", function () { //The code will deve
         function filterForging (data) {
             let filteredData;
             
-            console.log (data);
             let categoryNames = [];
 
             // We create the categories name lists to create the buttons.
             // We put categoryNames in an array.
             data.forEach((item) => {
-                console.log (item.category.name);
-                // We put the category names within an array
                 categoryNames.push(item.category.name);
             });
         
-            projectNames = new Set(categoryNames);
-        
-                /* We add a category 'Tous' at the beginning of the array so we have
-                all filter buttons*/
-                buttonNames = Array.from(projectNames);
-                buttonNames.unshift("Tous");
-                container = document.createElement("div");
-                container.classList.add("filters");
-                container.id = "idFilters";
+            projectNames = new Set(categoryNames);        
+            /* We add a category 'Tous' at the beginning of the array so we have
+            all filter buttons*/
+            buttonNames = Array.from(projectNames);
+            buttonNames.unshift("Tous");
+            container = document.createElement("div");
+            container.classList.add("filters");
+            container.id = "idFilters";
                 
-                /* We search the element <h2> in portfolio section and we insert the
-                filter container just after <h2>*/ 
-                let portfolioTitle = document.querySelector("#portfolio h2");
-                portfolioTitle.insertAdjacentElement("afterend", container);
+            /* We search the element <h2> in portfolio section and we insert the
+            filter container just after <h2>*/ 
+            let portfolioTitle = document.querySelector("#portfolio h2");
+            portfolioTitle.insertAdjacentElement("afterend", container);
 
-                let portfolioData = data;
-                for (i = 0; i < buttonNames.length; i++){
-                    buttons = document.createElement("button");
-                    buttons.innerText = buttonNames[i];
-                    container.appendChild(buttons);
-                }
-                buttonClick = document.querySelectorAll("#portfolio .filters button");
-        
-                buttonClick[0].classList.add("active");
-                
-                buttonClick.forEach (button => {
-                    button.addEventListener("click", () => {
-                        buttonClick.forEach(button => button.classList.remove("active"));
-                        button.classList.add("active");
-                        choice = button.innerText;
-                        emptyGallery();
-                        console.log("Back in business");
-
-                        
-                        if (choice === "Tous") {
-                            filteredData = data;
-                        } else {
-                            filteredData = data.filter(item => item.category.name === choice);
-                        }
+            let portfolioData = data;
+            for (i = 0; i < buttonNames.length; i++){
+                buttons = document.createElement("button");
+                buttons.innerText = buttonNames[i];
+                container.appendChild(buttons);
+            }
+            buttonClick = document.querySelectorAll("#portfolio .filters button");
+    
+            buttonClick[0].classList.add("active");
+            
+            buttonClick.forEach (button => {
+                button.addEventListener("click", () => {
+                    buttonClick.forEach(button => button.classList.remove("active"));
+                    button.classList.add("active");
+                    choice = button.innerText;
+                    emptyGallery();
                     
-                    portfolioData = filteredData;
-                    projectGallery(portfolioData);
-                    return;
-                    });
-                })       
+                    if (choice === "Tous") {
+                        filteredData = data;
+                    } else {
+                        filteredData = data.filter(item => item.category.name === choice);
+                    }
+                
+                portfolioData = filteredData;
+                projectGallery(portfolioData);
+                return;
+                });
+            })       
         }
 
         function projectGallery(portfolium) {
@@ -189,8 +169,7 @@ document.addEventListener("DOMContentLoaded", function () { //The code will deve
     //This function displays the gallery once called on loading or pressing button.
 
     let callLogoutLogin = document.querySelector('.logout_login');
-    console.log(callLogoutLogin);
-    callLogoutLogin.addEventListener('click', loggingOut);    
+    callLogoutLogin.addEventListener('click', loggingOut);
 });
 
 function loggingIn () { //What happens when we enter edition mode.
@@ -199,8 +178,14 @@ function loggingIn () { //What happens when we enter edition mode.
     document.querySelector('.edition_bar').style.display = 'block';
     document.querySelector('.edition_bar_text').style.display = 'block';
     document.querySelector('.modify_projects').style.display = 'block';
-    //let x = document.getElementById('idFilters');
-    //let y = document.querySelectorAll('.filters');
-    //console.log('buribis', x, y);
-    /*document.getElementById('idfilters').style.visibility = 'hidden';*/
+}
+
+function loggingOut () { //What happens when we exit edition mode.
+    loginLogout.style.display = 'block'; 
+    logoutLogin.style.display = 'none';
+    document.querySelector('.edition_bar').style.display = 'none';
+    document.querySelector('.edition_bar_text').style.display = 'none';
+    document.querySelector('.modify_projects').style.display = 'none';
+    localStorage.removeItem('authToken');
+    window.location.reload(true);
 }
