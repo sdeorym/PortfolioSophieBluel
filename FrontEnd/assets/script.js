@@ -1,5 +1,6 @@
 let loginLogout = document.querySelector('.login_logout');
 let logoutLogin = document.querySelector('.logout_login');
+let dataModal = null;
 
 document.addEventListener("DOMContentLoaded", function () { //The code will develop within this function, once the DOM is completely loaded.
     
@@ -12,8 +13,8 @@ document.addEventListener("DOMContentLoaded", function () { //The code will deve
         //This function connects with the API
         const response = await fetch("http://localhost:5678/api/works");
         const data = await response.json();
-        return data;
-        
+        dataModal = data; 
+        return data;    
     }
 
     promise.then(function(data) {
@@ -171,7 +172,7 @@ document.addEventListener("DOMContentLoaded", function () { //The code will deve
     let callLogoutLogin = document.querySelector('.logout_login');
     callLogoutLogin.addEventListener('click', loggingOut);
 });
-
++
 function loggingIn () { //What happens when we enter edition mode.
     loginLogout.style.display = 'none';
     logoutLogin.style.display = 'block';
@@ -188,4 +189,45 @@ function loggingOut () { //What happens when we exit edition mode.
     document.querySelector('.modify_projects').style.display = 'none';
     localStorage.removeItem('authToken');
     window.location.reload(true);
+}
+
+//The js to open/close the modal window properly
+
+let modal = null;
+document.querySelector("js-modal").forEach (a => {
+    a.addEventListener('click', openModal)    
+})
+
+const openModal = function (e) {
+    e.preventDefault();
+    const target = document.querySelector(e.target.getAttribute('href'));
+    //target.style.display = null;
+    modal = target;
+    let portfolioModalData = dataModal;
+    projectGallery (portfolioModalData);
+    modal.addEventListener('click', closeModal);
+}
+
+const closeModal = function (e) {
+    if (modal === null) {
+        return;
+    }
+    e.preventDefault();
+    modal.removeEventListener('click', closeModal);
+    modal = null;
+}
+
+function projectModalGallery(modalPortfolium) {
+    
+    let portfolio = document.querySelector(".modalGallery");
+                    
+    modalPortfolium.forEach(item => {
+        project = document.createElement("figure");
+        portfolio.appendChild(project);
+
+        projectImage = document.createElement("img");
+        projectImage.src = item.imageUrl;
+        project.appendChild(projectImage);
+    });
+    return;
 }

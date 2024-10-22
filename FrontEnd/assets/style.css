@@ -59,13 +59,11 @@ body {
 	text-align: center;
 	display: none;
 }
-
 .edition_bar_text {
 	text-align: center; /* Asegura que el texto esté centrado */
 	display: none;
 	padding: 20px 0;
 }
-
 header {
 	display: flex;
 	justify-content: space-between;
@@ -221,14 +219,12 @@ footer nav ul {
 .loginfooter {
 	margin-top: 250px;
 }
-
 .login_forgotten_password {
 	color: #3D3D3D;
 	font-size: 14px;
 	text-align: center;
 	text-decoration: underline;
 }
-
 .projectTitle {
 	display: inline; /*.modify_projects will be on the very same line*/
 	margin-left: 25px; 
@@ -241,4 +237,70 @@ footer nav ul {
 	text-align: center;
 	color: #000;
 	display: none;
+}
+
+/*** MODAL WINDOW***/
+.modal {
+	position: absolute;
+	width: 630px;
+	height: 688px;
+	top: 660px;
+	left: 405px;
+	gap: 0px;
+	border-radius: 10px 0px 0px 0px;
+	opacity: 0px;
+	background-color: #FFF;
+	/*padding: 60px 105px 45px;*/
+}
+.modal-wrapper {
+	/*width: 95%;
+	height: 95%;*/
+	display: flex;
+	flex-direction:column;
+}
+.closingIcon {
+	width: 24px;
+	height: 24px;	
+	align-self: flex-end;
+	padding: 26px 26px 0px 0px;
+}
+.modalTitle {
+	color: #000;
+	font: Work Sans;
+	font-weight: 400;
+	size: 26px;
+	line-height: 30.5px;
+	align-self: center;	
+}
+.modalGallery {
+	width: 420.3px;
+	height: 365.71px;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+	grid-column-gap: 9px;
+	grid-row-gap: 29px;
+	background-color:#F00;
+	align-self: center;
+	margin: 46px 0px;
+}
+.horLine {
+	width: 420.3px;
+	border-bottom: 1px solid #B3B3B3;
+	align-self: center;
+}
+.modalButton {
+	background-color: #1D6154;
+  	color: #FFF;
+	border-radius: 60px;
+	border: 1px solid #1D6154;
+	font-family: Syne;
+	font-size: 14px;
+	font-weight: 700;
+	line-height: 16.8px;
+	text-align: center;
+	cursor: pointer;
+	width: 237px;
+	height: 36px;
+	align-self: center;
+	margin: 36px 0px;
 }
