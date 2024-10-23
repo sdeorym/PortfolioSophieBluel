@@ -251,6 +251,7 @@ footer nav ul {
 	opacity: 0px;
 	background-color: #FFF;
 	/*padding: 60px 105px 45px;*/
+	display: none;
 }
 .modal-wrapper {
 	/*width: 95%;
@@ -259,10 +260,16 @@ footer nav ul {
 	flex-direction:column;
 }
 .closingIcon {
-	width: 24px;
-	height: 24px;	
+	width: 26px;
+	height: 26px;	
 	align-self: flex-end;
-	padding: 26px 26px 0px 0px;
+	margin: 26px 26px 0px 0px;
+	cursor: pointer;
+	border: 0px;
+	background-color: #FFF;
+}
+.xMark {
+	align-self: center;
 }
 .modalTitle {
 	color: #000;

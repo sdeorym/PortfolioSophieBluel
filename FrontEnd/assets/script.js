@@ -172,7 +172,7 @@ document.addEventListener("DOMContentLoaded", function () { //The code will deve
     let callLogoutLogin = document.querySelector('.logout_login');
     callLogoutLogin.addEventListener('click', loggingOut);
 });
-+
+
 function loggingIn () { //What happens when we enter edition mode.
     loginLogout.style.display = 'none';
     logoutLogin.style.display = 'block';
@@ -194,30 +194,43 @@ function loggingOut () { //What happens when we exit edition mode.
 //The js to open/close the modal window properly
 
 let modal = null;
-document.querySelector("js-modal").forEach (a => {
-    a.addEventListener('click', openModal)    
+const xMark = document.querySelector(".closingIcon");
+let seeModal1 = document.querySelector('.modal');
+
+//let openModal, closeModal;
+
+document.querySelectorAll(".js-modal").forEach (a => {
+    console.log("cucú");
+    a.addEventListener('click', openModal);    
 })
 
-const openModal = function (e) {
+function openModal (e) {
+    console.log("cucú2");
     e.preventDefault();
-    const target = document.querySelector(e.target.getAttribute('href'));
-    //target.style.display = null;
-    modal = target;
-    let portfolioModalData = dataModal;
+    console.log(e.target.getAttribute('href'));    
+    const target = e.target.getAttribute('href');
+    modal = target;    
+    /*let portfolioModalData = dataModal;
     projectGallery (portfolioModalData);
-    modal.addEventListener('click', closeModal);
+    //modal.addEventListener('click', closeModal);*/
+    console.log('Modal abierta:', modal, target);
+    xMark.addEventListener('click', closeModal);
+    console.log('Evento de cerrar modal asignado');
+    seeModal1.style.display = 'block';
 }
 
-const closeModal = function (e) {
+function closeModal (e) {
     if (modal === null) {
         return;
     }
     e.preventDefault();
-    modal.removeEventListener('click', closeModal);
+    xMark.removeEventListener('click', closeModal);
     modal = null;
+    console.log("Are we closing the modal window?")
+    seeModal1.style.display = 'none';
 }
 
-function projectModalGallery(modalPortfolium) {
+/*function projectModalGallery(modalPortfolium) {
     
     let portfolio = document.querySelector(".modalGallery");
                     
@@ -230,4 +243,4 @@ function projectModalGallery(modalPortfolium) {
         project.appendChild(projectImage);
     });
     return;
-}
+}*/
