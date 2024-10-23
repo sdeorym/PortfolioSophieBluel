@@ -1,6 +1,8 @@
 let loginLogout = document.querySelector('.login_logout');
 let logoutLogin = document.querySelector('.logout_login');
 let dataModal = null;
+let tinyGallery = [];
+console.log(tinyGallery, "page start");
 
 document.addEventListener("DOMContentLoaded", function () { //The code will develop within this function, once the DOM is completely loaded.
     
@@ -112,7 +114,7 @@ document.addEventListener("DOMContentLoaded", function () { //The code will deve
             portfolio.appendChild(newGallery);*/
     
             let portfolio = document.querySelector(".gallery");
-                            
+            console.log(portfolio);                
             portfolium.forEach(item => {
                 project = document.createElement("figure");
                 portfolio.appendChild(project);
@@ -125,6 +127,10 @@ document.addEventListener("DOMContentLoaded", function () { //The code will deve
                 projectTitle = document.createElement("figcaption");
                 projectTitle.innerText = item.title;
                 project.appendChild(projectTitle);
+                
+                //We populate tinyGallery so we can use it in the modal
+                tinyGallery.push(item);
+                console.log(tinyGallery, "tinyGallery populated");                
             });
             return;
         }
@@ -192,7 +198,7 @@ function loggingOut () { //What happens when we exit edition mode.
 }
 
 //The js to open/close the modal window properly
-
+console.log("tinyGallery", tinyGallery, new Date().toString());
 let modal = null;
 const xMark = document.querySelector(".closingIcon");
 let seeModal1 = document.querySelector('.modal');
@@ -205,17 +211,12 @@ document.querySelectorAll(".js-modal").forEach (a => {
 })
 
 function openModal (e) {
-    console.log("cucú2");
     e.preventDefault();
-    console.log(e.target.getAttribute('href'));    
     const target = e.target.getAttribute('href');
     modal = target;    
-    /*let portfolioModalData = dataModal;
-    projectGallery (portfolioModalData);
-    //modal.addEventListener('click', closeModal);*/
-    console.log('Modal abierta:', modal, target);
+    let tinyPortfolio = tinyGallery;  // Usa tinyGallery aquí
+    tinyGalleryDisplay(tinyPortfolio); // Supongamos que tienes esta función para llenar el modal
     xMark.addEventListener('click', closeModal);
-    console.log('Evento de cerrar modal asignado');
     seeModal1.style.display = 'block';
 }
 
@@ -226,21 +227,18 @@ function closeModal (e) {
     e.preventDefault();
     xMark.removeEventListener('click', closeModal);
     modal = null;
-    console.log("Are we closing the modal window?")
     seeModal1.style.display = 'none';
 }
 
-/*function projectModalGallery(modalPortfolium) {
-    
-    let portfolio = document.querySelector(".modalGallery");
-                    
-    modalPortfolium.forEach(item => {
-        project = document.createElement("figure");
-        portfolio.appendChild(project);
+function tinyGalleryDisplay(portfolia) {
+    let modalPortfolio = document.querySelector(".modalGallery");
+    portfolia.forEach(item => {
+        let tinyProject = document.createElement("figure");
+        modalPortfolio.appendChild(tinyProject);
 
-        projectImage = document.createElement("img");
-        projectImage.src = item.imageUrl;
-        project.appendChild(projectImage);
+        let tinyProjectImage = document.createElement("img");
+        tinyProjectImage.src = item.imageUrl;
+        tinyProject.appendChild(tinyProjectImage);    
     });
     return;
-}*/
+}

@@ -238,6 +238,10 @@ footer nav ul {
 	color: #000;
 	display: none;
 }
+.modify_projects > a {
+    text-decoration: none;  
+    color: inherit;
+}
 
 /*** MODAL WINDOW***/
 .modal {
@@ -286,10 +290,25 @@ footer nav ul {
 	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 	grid-column-gap: 9px;
 	grid-row-gap: 29px;
-	background-color:#F00;
+	background-color:#FFF;
 	align-self: center;
 	margin: 46px 0px;
 }
+.modalGallery img {
+	width: 76.61px;
+	height: 102.57px;
+	gap: 0px;
+	opacity: 0px;
+}
+
+.modalGallery .icon {
+	width: 17px;
+	height: 17px;
+	margin: 6.43px 0px 0px 7.75px;
+	gap: 0px;
+	opacity: 0px;
+}
+
 .horLine {
 	width: 420.3px;
 	border-bottom: 1px solid #B3B3B3;
