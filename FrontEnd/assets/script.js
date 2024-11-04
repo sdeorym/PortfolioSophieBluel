@@ -198,36 +198,45 @@ function loggingOut () { //What happens when we exit edition mode.
 }
 
 //The js to open/close the modal window properly
-console.log("tinyGallery", tinyGallery, new Date().toString());
 let modal = null;
 const xMark = document.querySelector(".closingIcon");
+const modalOverlay = document.getElementById('modal-overlay');
 let seeModal1 = document.querySelector('.modal');
 
 //let openModal, closeModal;
 
 document.querySelectorAll(".js-modal").forEach (a => {
-    console.log("cucú");
     a.addEventListener('click', openModal);    
 })
 
 function openModal (e) {
     e.preventDefault();
+    modalOverlay.style.display = 'block';
+    seeModal1.style.display = 'block';
     const target = e.target.getAttribute('href');
     modal = target;    
-    let tinyPortfolio = tinyGallery;  // Usa tinyGallery aquí
-    tinyGalleryDisplay(tinyPortfolio); // Supongamos que tienes esta función para llenar el modal
+    let tinyPortfolio = tinyGallery;  
+    tinyGalleryDisplay(tinyPortfolio);
     xMark.addEventListener('click', closeModal);
-    seeModal1.style.display = 'block';
+    console.log("En openModal ha entrado, ¿se ve o sólo la pantalla coloreada?");
 }
 
 function closeModal (e) {
+    //We do nothing when modal is null
     if (modal === null) {
         return;
     }
+    //We prevent the action default of the event (if any)
     e.preventDefault();
+    /*if (e.target === modalOverlay || e.target === xMark) {
+        xMark.removeEventListener('click', closeModal);
+        modalOverlay.style.display = 'none';
+        seeModal1.style.display = 'none';
+        modal = null;
+        }*/
     xMark.removeEventListener('click', closeModal);
-    modal = null;
     seeModal1.style.display = 'none';
+    modal = null;                    
 }
 
 function tinyGalleryDisplay(portfolia) {

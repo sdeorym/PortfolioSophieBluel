@@ -198,7 +198,7 @@ li:hover {
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
-input[type="submit"]{
+input[type="submit"] {
 	font-family: 'Syne';
 	font-weight: 700;
 	color: white;
@@ -219,10 +219,12 @@ footer nav ul {
 .loginfooter {
 	margin-top: 250px;
 }
-.login_forgotten_password {
+.belowButton {
 	color: #3D3D3D;
 	font-size: 14px;
 	text-align: center;
+}
+#login_forgotten_password {
 	text-decoration: underline;
 }
 .projectTitle {
@@ -251,29 +253,57 @@ footer nav ul {
 	top: 660px;
 	left: 405px;
 	gap: 0px;
-	border-radius: 10px 0px 0px 0px;
-	opacity: 0px;
 	background-color: #FFF;
-	/*padding: 60px 105px 45px;*/
 	display: none;
+	border-radius: 10px;
+	z-index: 1500;
+}
+#modal-overlay {
+	display: none;
+	/*position: fixed;*/
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 255, 0.5);
+	z-index: 500;
 }
 .modal-wrapper {
-	/*width: 95%;
-	height: 95%;*/
 	display: flex;
 	flex-direction:column;
+	align-items: center;
+	background-color:#FFF;
+	border-radius: 10px;
+	padding: 0;
+}
+.firstScreen {
+	position: relative;
+	display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    gap: 20px;
+}
+.iconButton {
+	display: flex;
+	flex-direction:row;
+	position: absolute;
+	top: 30px;
+	right: 30px;
 }
 .closingIcon {
 	width: 26px;
-	height: 26px;	
-	align-self: flex-end;
-	margin: 26px 26px 0px 0px;
+	height: 26px;
 	cursor: pointer;
 	border: 0px;
 	background-color: #FFF;
 }
 .xMark {
 	align-self: center;
+	background-color:#FFF;
 }
 .modalTitle {
 	color: #000;
@@ -281,7 +311,9 @@ footer nav ul {
 	font-weight: 400;
 	size: 26px;
 	line-height: 30.5px;
-	align-self: center;	
+	align-items: center;
+	padding: 36px 0px;
+	text-align: center;
 }
 .modalGallery {
 	width: 420.3px;
@@ -292,7 +324,6 @@ footer nav ul {
 	grid-row-gap: 29px;
 	background-color:#FFF;
 	align-self: center;
-	margin: 46px 0px;
 }
 .modalGallery img {
 	width: 76.61px;
@@ -300,6 +331,33 @@ footer nav ul {
 	gap: 0px;
 	opacity: 0px;
 }
+.horLine {
+	width: 420.3px;
+	border-bottom: 1px solid #B3B3B3;
+	align-self: center;
+	padding: 38px 0px;
+}
+.modalButton {
+	background-color: #1D6154;
+    color: #FFF;
+    border-radius: 60px;
+    border: 1px solid #1D6154;
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 16.8px;
+    text-align: center;
+    cursor: pointer;
+    width: 237px;
+    height: 36px;
+    margin: 0;
+    align-self: center;
+}
+
+
+/***
+
+
 
 .modalGallery .icon {
 	width: 17px;
@@ -309,24 +367,25 @@ footer nav ul {
 	opacity: 0px;
 }
 
-.horLine {
-	width: 420.3px;
-	border-bottom: 1px solid #B3B3B3;
-	align-self: center;
+#fileInput {
+	display: none;
 }
-.modalButton {
-	background-color: #1D6154;
-  	color: #FFF;
-	border-radius: 60px;
-	border: 1px solid #1D6154;
-	font-family: Syne;
-	font-size: 14px;
+  
+  /* Estilos para el contenedor y el botón */
+/***.file-upload {
+	display: inline-block;
+}
+.file-label {
+	font-family: 'Syne';
 	font-weight: 700;
-	line-height: 16.8px;
+	color: white;
+	background-color: #1D6154;
+	margin : 2em auto ;
+	width: 180px;
 	text-align: center;
-	cursor: pointer;
-	width: 237px;
-	height: 36px;
-	align-self: center;
-	margin: 36px 0px;
+	border-radius: 60px ;
 }
+
+.secondScreen {
+	visibility: hidden;
+} ***/
