@@ -94,7 +94,7 @@
 			<aside id="laModale" class="modal" aria-hidden="true" role="dialog">			
 				<div class="modal-wrapper">
 					<div class="firstScreen">
-						<div class="iconButton">
+						<div class="iconButton page1">
 							<button class="closingIcon">
 								<img src="./assets/icons/xmark.png" alt="Fermer" class="xMark">
 							</button>
@@ -103,10 +103,10 @@
 						<div class="modalGallery">
 						</div>
 						<div class="horLine"></div>
-						<input type="submit" value="Ajouter une photo" class="modalButton" id="changeWindow">
+						<button class="modalButton" id="changeWindow">Ajouter une photo</button>
 					</div>
-					<div class="secondScreen"><!--
-						<div class="iconButton">
+					<div class="secondScreen">
+						<div class="iconButton page2">
 							<button class="backArrow">
 								<img src="./assets/icons/arrow-left.png" alt="Retour" class="leftArrow">
 							</button>
@@ -114,12 +114,13 @@
 								<img src="./assets/icons/xmark.png" alt="Fermer" class="xMark">
 							</button>
 						</div>
+						<p class="modalTitle">Ajout photo</p>
 						<form id="addingForm" action="/upload" method="POST" enctype="multipart/form-data">
 							<div class="addWindow">
 								<img src="./assets/icons/add-photo.png" alt="Add a photo" class="addPhoto">
-								<div class="file-upload">
+								<div class="photo-upload">
 									<label for="fileInput" class="file-label">+ Ajouter photo</label>
-									<input type="file" id="fileInput" accept="image/*">
+									<input type="file" id="fileInput" accept="image/*" class="file-input">
 								</div>
 								<p class="belowButton">jpg, png : 4mo max</p>
 							</div>
@@ -131,7 +132,7 @@
 							</div>
 							<div class="horLine"></div>
 							<input type="submit" value="Ajouter une photo">
-						</form>-->
+						</form>
 					</div>	
 				</div>			
 			</aside>

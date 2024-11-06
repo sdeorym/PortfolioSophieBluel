@@ -253,7 +253,8 @@ footer nav ul {
 	top: 660px;
 	left: 405px;
 	gap: 0px;
-	background-color: #FFF;
+	/*background-color: #FF5;*/
+	opacity: 0px;
 	display: none;
 	border-radius: 10px;
 	z-index: 1500;
@@ -274,12 +275,18 @@ footer nav ul {
 	display: flex;
 	flex-direction:column;
 	align-items: center;
-	background-color:#FFF;
+	width: 630px;
+	height: 670px;
+	top: 660px;
+	left: 405px;
+	background-color:#FF5;
 	border-radius: 10px;
 	padding: 0;
 }
 .firstScreen {
+	visibility:hidden;
 	position: relative;
+	top: 0px;
 	display: flex;
     flex-direction: column;
     align-items: center;
@@ -287,19 +294,44 @@ footer nav ul {
     width: 100%;
     gap: 20px;
 }
+.secondScreen {
+	visibility:hidden;
+	position: relative;
+	display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    gap: 20px;
+	top: -640px;
+}
 .iconButton {
 	display: flex;
-	flex-direction:row;
+	flex-direction: row;
 	position: absolute;
-	top: 30px;
-	right: 30px;
+	top: 30px;	
 }
-.closingIcon {
+.page1 {
+	justify-content: end;
+	left:570px;
+}
+.page2 {
+	justify-content: space-between;
+	right:30px;
+	left:30px;
+}
+.closingIcon, .backArrow {
 	width: 26px;
 	height: 26px;
 	cursor: pointer;
 	border: 0px;
 	background-color: #FFF;
+}
+.closingIcon {
+	right: 30px;
+}
+.backArrow {
+	left:30px;
 }
 .xMark {
 	align-self: center;
@@ -353,8 +385,51 @@ footer nav ul {
     margin: 0;
     align-self: center;
 }
+.addWindow {
+	width: 420px;
+	height: 169px;
+	border-radius:3px;
+	display: flex;
+    flex-direction: column;
+    align-items: center;
+	background-color: #E8F1F6;
+	justify-content:space-evenly;
+}
+.photo-upload {
+    position: relative;
+    display: inline-block;
+
+}
+.file-input {
+    display: none; /* Oculta el botón nativo de archivo */
+}
+.addPhoto {
+	height: 76px;
+	width: 76px;
+}
+.file-label {
+	width: 173px;
+	height: 36px;
+	border-radius: 50px;
+    display: inline-block;
+    color: #306685;
+    cursor: pointer;
+    font-family: Work Sans;
+	font-size: 14px;
+	font-weight: 500;
+	line-height: 16.42px;
+	text-align: center;
+	align-content: center;
+	background: #CBD6DC;
 
 
+    
+}
+
+/*.file-label:hover {
+	transition: background-color 0.3s;
+    background-color: #45a049; /* Color al pasar el ratón por encima */
+/*}*/
 /***
 
 
@@ -386,6 +461,4 @@ footer nav ul {
 	border-radius: 60px ;
 }
 
-.secondScreen {
-	visibility: hidden;
 } ***/

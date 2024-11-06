@@ -2,7 +2,6 @@ let loginLogout = document.querySelector('.login_logout');
 let logoutLogin = document.querySelector('.logout_login');
 let dataModal = null;
 let tinyGallery = [];
-console.log(tinyGallery, "page start");
 
 document.addEventListener("DOMContentLoaded", function () { //The code will develop within this function, once the DOM is completely loaded.
     
@@ -114,7 +113,6 @@ document.addEventListener("DOMContentLoaded", function () { //The code will deve
             portfolio.appendChild(newGallery);*/
     
             let portfolio = document.querySelector(".gallery");
-            console.log(portfolio);                
             portfolium.forEach(item => {
                 project = document.createElement("figure");
                 portfolio.appendChild(project);
@@ -130,7 +128,6 @@ document.addEventListener("DOMContentLoaded", function () { //The code will deve
                 
                 //We populate tinyGallery so we can use it in the modal
                 tinyGallery.push(item);
-                console.log(tinyGallery, "tinyGallery populated");                
             });
             return;
         }
@@ -155,22 +152,18 @@ document.addEventListener("DOMContentLoaded", function () { //The code will deve
         //    portfolio.removeChild(gallery);
         //}
 
-        /*Now we create the DOM content dinamically*/
-        //I create element <h2>Mes Projets</h2>
-        //project = document.createElement("h2");
-        //project.innerText = "Mes Projets";
-        //portfolio.appendChild(project);
+        /*Now we create the DOM content dinamically
+        I create element <h2>Mes Projets</h2>
+        project = document.createElement("h2");
+        project.innerText = "Mes Projets";
+        portfolio.appendChild(project);
 
-        //I create a div to contain my buttons
+        I create a div to contain my buttons
 
-        //Filter choice and call to function.
-        /*console.log("Bonjour", token);
+        Filter choice and call to function.*/
         if (token == null) {
-            filterForging ();
-            console.log("no hay log que valga", token);                   
-        } else {
-            console.log("ni botón ni botona", token);
-        }*/
+            filterForging ();                   
+        }
     });
 
     //This function displays the gallery once called on loading or pressing button.
@@ -200,10 +193,12 @@ function loggingOut () { //What happens when we exit edition mode.
 //The js to open/close the modal window properly
 let modal = null;
 const xMark = document.querySelector(".closingIcon");
+const arrow = document.querySelector(".backArrow")
 const modalOverlay = document.getElementById('modal-overlay');
 let seeModal1 = document.querySelector('.modal');
-
-//let openModal, closeModal;
+let openModal2 = document.getElementById('changeWindow');
+const modal1 = document.querySelector('.firstScreen');
+const modal2 = document.querySelector('.secondScreen');
 
 document.querySelectorAll(".js-modal").forEach (a => {
     a.addEventListener('click', openModal);    
@@ -211,14 +206,19 @@ document.querySelectorAll(".js-modal").forEach (a => {
 
 function openModal (e) {
     e.preventDefault();
+    //We turn to visible both modal and first page
     modalOverlay.style.display = 'block';
     seeModal1.style.display = 'block';
     const target = e.target.getAttribute('href');
-    modal = target;    
+    modal = target;
+    modal1.style.visibility = 'visible';
+
+    //We empty the gallery so it does not show the gallery twice, then we show the correct gallery.
+    emptyTinyGallery(); 
     let tinyPortfolio = tinyGallery;  
     tinyGalleryDisplay(tinyPortfolio);
+    
     xMark.addEventListener('click', closeModal);
-    console.log("En openModal ha entrado, ¿se ve o sólo la pantalla coloreada?");
 }
 
 function closeModal (e) {
@@ -234,7 +234,9 @@ function closeModal (e) {
         seeModal1.style.display = 'none';
         modal = null;
         }*/
-    xMark.removeEventListener('click', closeModal);
+    modal1.style.visibility = 'hidden';
+    modal2.style.visibility = 'hidden';
+    //xMark.removeEventListener('click', closeModal);
     seeModal1.style.display = 'none';
     modal = null;                    
 }
@@ -251,3 +253,23 @@ function tinyGalleryDisplay(portfolia) {
     });
     return;
 }
+/*We create a function to empty the tiny gallery any time a button is pressed, 
+so it is virgin when we see the selected photos.*/
+function emptyTinyGallery () {
+    let existingTinyGallery = document.querySelector(".modalGallery");
+    existingTinyGallery.innerHTML = '';
+    return;
+}
+
+function nextPage () {
+    modal1.style.visibility = 'hidden';
+    modal2.style.visibility = 'visible';
+}
+
+function previousPage () {
+    modal1.style.visibility = 'visible';
+    modal2.style.visibility = 'hidden';
+}
+
+openModal2.addEventListener('click', nextPage);
+arrow.addEventListener('click', previousPage);

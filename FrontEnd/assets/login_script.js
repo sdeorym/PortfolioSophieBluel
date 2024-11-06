@@ -59,7 +59,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     //We obtain data from the form on the login page.
     const form = document.getElementById('loginform');
-    console.log('form', form);
     form.addEventListener('submit', function (event) {
         event.preventDefault(); // We won't be sending the form by default
 
