@@ -192,16 +192,20 @@ function loggingOut () { //What happens when we exit edition mode.
 
 //The js to open/close the modal window properly
 let modal = null;
-const xMark = document.querySelector(".closingIcon");
 const arrow = document.querySelector(".backArrow")
 const modalOverlay = document.getElementById('modal-overlay');
 let seeModal1 = document.querySelector('.modal');
 let openModal2 = document.getElementById('changeWindow');
 const modal1 = document.querySelector('.firstScreen');
 const modal2 = document.querySelector('.secondScreen');
+const photoAdd = document.querySelector('.formBottom');
 
 document.querySelectorAll(".js-modal").forEach (a => {
     a.addEventListener('click', openModal);    
+})
+
+document.querySelectorAll(".xMark").forEach (b => {
+    b.addEventListener('click', closeModal);    
 })
 
 function openModal (e) {
@@ -212,13 +216,14 @@ function openModal (e) {
     const target = e.target.getAttribute('href');
     modal = target;
     modal1.style.visibility = 'visible';
+    photoAdd.style.visibility = 'hidden';
 
     //We empty the gallery so it does not show the gallery twice, then we show the correct gallery.
     emptyTinyGallery(); 
     let tinyPortfolio = tinyGallery;  
     tinyGalleryDisplay(tinyPortfolio);
     
-    xMark.addEventListener('click', closeModal);
+    /*xMark.addEventListener('click', closeModal);*/
 }
 
 function closeModal (e) {
@@ -236,6 +241,8 @@ function closeModal (e) {
         }*/
     modal1.style.visibility = 'hidden';
     modal2.style.visibility = 'hidden';
+    photoAdd.style.visibility = 'hidden';
+
     //xMark.removeEventListener('click', closeModal);
     seeModal1.style.display = 'none';
     modal = null;                    
@@ -264,11 +271,14 @@ function emptyTinyGallery () {
 function nextPage () {
     modal1.style.visibility = 'hidden';
     modal2.style.visibility = 'visible';
+    photoAdd.style.visibility = 'visible';
+
 }
 
 function previousPage () {
     modal1.style.visibility = 'visible';
     modal2.style.visibility = 'hidden';
+    photoAdd.style.visibility = 'hidden';
 }
 
 openModal2.addEventListener('click', nextPage);

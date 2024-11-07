@@ -114,7 +114,7 @@
 								<img src="./assets/icons/xmark.png" alt="Fermer" class="xMark">
 							</button>
 						</div>
-						<p class="modalTitle">Ajout photo</p>
+						<p class="modalTitle sc2">Ajout photo</p>
 						<form id="addingForm" action="/upload" method="POST" enctype="multipart/form-data">
 							<div class="addWindow">
 								<img src="./assets/icons/add-photo.png" alt="Add a photo" class="addPhoto">
@@ -125,13 +125,15 @@
 								<p class="belowButton">jpg, png : 4mo max</p>
 							</div>
 							<div class="photoData">
-								<label for="title">Titre</label>
-								<input type="title" name="title" id="title" required></div>
-								<label for="category">Catégorie</label>
-								<input type="category" name="category" id="category" required></div>
+								<label for="title" class="fieldLabel">Titre</label>
+								<input type="title" name="title" id="title" class="insideTheBox" required>
+								<label for="category" class="fieldLabel">Catégorie</label>
+								<input type="category" name="category" id="category" class="insideTheBox" required></div>
 							</div>
-							<div class="horLine"></div>
-							<input type="submit" value="Ajouter une photo">
+							<div class="formBottom">
+								<div class="horLine lineTwo"></div>
+								<input type="submit" value="Valider" class="buttonToAdd">
+							</div>
 						</form>
 					</div>	
 				</div>			
