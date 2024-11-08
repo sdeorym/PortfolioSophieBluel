@@ -2,6 +2,7 @@ let loginLogout = document.querySelector('.login_logout');
 let logoutLogin = document.querySelector('.logout_login');
 let dataModal = null;
 let tinyGallery = [];
+let dropDownCategories = []; 
 
 document.addEventListener("DOMContentLoaded", function () { //The code will develop within this function, once the DOM is completely loaded.
     
@@ -42,21 +43,20 @@ document.addEventListener("DOMContentLoaded", function () { //The code will deve
             filterForging (data);
         }
     
-        let portfolioData = data;
-        projectGallery (portfolioData);
+        let filteredData;            
+        let categoryNames = [];
+        // We create the categories name lists to create the buttons.
+        // We put categoryNames in an array.
+        data.forEach((item) => {
+            categoryNames.push(item.category.name);
+        });
+        projectNames = new Set(categoryNames);
+        //We introduce the categories in dropDownCategories so we'll use them later.
+        projectNames.forEach((item) =>{
+            dropDownCategories.push(item);
+        });
 
         function filterForging (data) {
-            let filteredData;
-            
-            let categoryNames = [];
-
-            // We create the categories name lists to create the buttons.
-            // We put categoryNames in an array.
-            data.forEach((item) => {
-                categoryNames.push(item.category.name);
-            });
-        
-            projectNames = new Set(categoryNames);        
             /* We add a category 'Tous' at the beginning of the array so we have
             all filter buttons*/
             buttonNames = Array.from(projectNames);
@@ -193,7 +193,7 @@ function loggingOut () { //What happens when we exit edition mode.
 //The js to open/close the modal window properly
 let modal = null;
 const arrow = document.querySelector(".backArrow")
-const modalOverlay = document.getElementById('modal-overlay');
+const modalOverlay = document.querySelector('.modal-overlay');
 let seeModal1 = document.querySelector('.modal');
 let openModal2 = document.getElementById('changeWindow');
 const modal1 = document.querySelector('.firstScreen');
@@ -211,7 +211,7 @@ document.querySelectorAll(".xMark").forEach (b => {
 function openModal (e) {
     e.preventDefault();
     //We turn to visible both modal and first page
-    modalOverlay.style.display = 'block';
+    modalOverlay.style.visibility = 'visible';
     seeModal1.style.display = 'block';
     const target = e.target.getAttribute('href');
     modal = target;
@@ -239,7 +239,7 @@ function closeModal (e) {
         seeModal1.style.display = 'none';
         modal = null;
         }*/
-    modal1.style.visibility = 'hidden';
+    modalOverlay.style.visibility = 'hidden';
     modal2.style.visibility = 'hidden';
     photoAdd.style.visibility = 'hidden';
 
@@ -272,7 +272,6 @@ function nextPage () {
     modal1.style.visibility = 'hidden';
     modal2.style.visibility = 'visible';
     photoAdd.style.visibility = 'visible';
-
 }
 
 function previousPage () {

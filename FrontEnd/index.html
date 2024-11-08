@@ -12,6 +12,7 @@
 	<script rel="javascript" type="module" src="./assets/script.js" defer></script>
 </head>
 <body>
+
 <!-- Superior bar-->
 	<div class="edition_bar">
 		<span class="edition_bar_text"><img src="./assets/icons/editionwhite.png" alt="Edition"> Mode édition</span>
@@ -90,8 +91,9 @@
 				</figure>-->
 			</div>		
 		</section>
-		<div id="modal-overlay" class="modal-overlay" onclick="closeModal(event)">
-			<aside id="laModale" class="modal" aria-hidden="true" role="dialog">			
+		<section id="environment">			
+			<aside id="laModale" class="modal" aria-hidden="true" role="dialog">
+				<div class="modal-overlay"></div>			
 				<div class="modal-wrapper">
 					<div class="firstScreen">
 						<div class="iconButton page1">
@@ -128,17 +130,20 @@
 								<label for="title" class="fieldLabel">Titre</label>
 								<input type="title" name="title" id="title" class="insideTheBox" required>
 								<label for="category" class="fieldLabel">Catégorie</label>
-								<input type="category" name="category" id="category" class="insideTheBox" required></div>
+								<div class="insideTheBox">
+									<input type="category" name="category" id="category" class="categoryToChoose" required>
+									<img src="./assets/images/chevron-down-solid 1.png" alt="Déployer" class="down-arrow">
+								</div>		
 							</div>
 							<div class="formBottom">
 								<div class="horLine lineTwo"></div>
-								<input type="submit" value="Valider" class="buttonToAdd">
+								<input type="submit" value="Valider" class="buttonToAdd" disabled>
 							</div>
 						</form>
 					</div>	
 				</div>			
-			</aside>
-		</div>
+			</aside>	
+		</section>
 		<section id="contact">
 			<h2>Contact</h2>
 			<p>Vous avez un projet ? Discutons-en !</p>
@@ -161,5 +166,7 @@
 			</ul>
 		</nav>
 	</footer>
+
 </body>
+
 </html>
