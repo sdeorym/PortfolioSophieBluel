@@ -4,25 +4,25 @@ let dataModal = null;
 let tinyGallery = [];
 let dropDownCategories = []; 
 
-document.addEventListener("DOMContentLoaded", function () { //The code will develop within this function, once the DOM is completely loaded.
-    
+document.addEventListener("DOMContentLoaded", function () { 
+    //The code will develop within this function, once the DOM is completely loaded.
     let promise = fetchData ();
-    var project; /*document.createElement("figure");*/ /*Parent figure for photos and captions.*/
-    var projectTitle; /*document.createElement("figcaption");*/ /*The caption to the figure.*/
+    var project; 
+    var projectTitle; 
     let projectImage;
-
+    
     async function fetchData () {
         //This function connects with the API
         const response = await fetch("http://localhost:5678/api/works");
         const data = await response.json();
-        dataModal = data; 
+        dataModal = data;         
         return data;    
     }
 
     promise.then(function(data) {
         //So when the connection is done we get our flamboyant variables.
         let i = 0;
-        
+
         //Variables for DOM creation.    
         let container = "";
         let buttons = "";
@@ -38,25 +38,35 @@ document.addEventListener("DOMContentLoaded", function () { //The code will deve
             /*If the token is active, we manipulate the DOM to include the black header and the
             modifier button.*/
             loggingIn ();
+            projectGallery(data);
+            filterForging(data);
         } else {
-            //It it is not active, we go directly to generate the filters.
-            filterForging (data);
+            /*It it is not active, we go directly to generate the filters.
+            Otherwise, filters won't come out when logging out.*/            
+            buttonry(data);
         }
-    
-        let filteredData;            
-        let categoryNames = [];
-        // We create the categories name lists to create the buttons.
-        // We put categoryNames in an array.
-        data.forEach((item) => {
-            categoryNames.push(item.category.name);
-        });
-        projectNames = new Set(categoryNames);
-        //We introduce the categories in dropDownCategories so we'll use them later.
-        projectNames.forEach((item) =>{
-            dropDownCategories.push(item);
-        });
-
+        
         function filterForging (data) {
+            let filteredData;            
+            let categoryNames = [];
+            
+            // We create the categories name lists to create the buttons.
+            // We put categoryNames in an array.
+            data.forEach((item) => {
+                categoryNames.push(item.category.name);
+            });
+            projectNames = new Set(categoryNames);
+            
+            //We introduce the categories in dropDownCategories so we'll use them later.
+            projectNames.forEach((item) =>{
+                dropDownCategories.push(item);
+            });
+            console.log(dropDownCategories, dropDownCategories.length);
+        }
+
+        function buttonry (data) {
+            filterForging (data);
+
             /* We add a category 'Tous' at the beginning of the array so we have
             all filter buttons*/
             buttonNames = Array.from(projectNames);
@@ -64,22 +74,25 @@ document.addEventListener("DOMContentLoaded", function () { //The code will deve
             container = document.createElement("div");
             container.classList.add("filters");
             container.id = "idFilters";
-                
+
             /* We search the element <h2> in portfolio section and we insert the
             filter container just after <h2>*/ 
             let portfolioTitle = document.querySelector("#portfolio h2");
             portfolioTitle.insertAdjacentElement("afterend", container);
 
             let portfolioData = data;
+
             for (i = 0; i < buttonNames.length; i++){
                 buttons = document.createElement("button");
                 buttons.innerText = buttonNames[i];
                 container.appendChild(buttons);
             }
             buttonClick = document.querySelectorAll("#portfolio .filters button");
-    
             buttonClick[0].classList.add("active");
-            
+
+            emptyGallery();
+            projectGallery(portfolioData);
+
             buttonClick.forEach (button => {
                 button.addEventListener("click", () => {
                     buttonClick.forEach(button => button.classList.remove("active"));
@@ -97,22 +110,22 @@ document.addEventListener("DOMContentLoaded", function () { //The code will deve
                 projectGallery(portfolioData);
                 return;
                 });
+                
             })       
         }
 
         function projectGallery(portfolium) {
-            /*// Clear existing gallery content
+            /* Clear existing gallery content
             let portfolio = document.querySelector(".gallery");
             const existingGallery = document.querySelector("#portfolio .gallery");
             if (existingGallery) {
                 existingGallery.remove();
             }    
-            // Create new gallery div
+             Create new gallery div
             const newGallery = document.createElement("div");
             newGallery.classList.add("gallery");
             portfolio.appendChild(newGallery);*/
-    
-            let portfolio = document.querySelector(".gallery");
+            let portfolio = document.querySelector(".gallery");            
             portfolium.forEach(item => {
                 project = document.createElement("figure");
                 portfolio.appendChild(project);
@@ -127,7 +140,7 @@ document.addEventListener("DOMContentLoaded", function () { //The code will deve
                 project.appendChild(projectTitle);
                 
                 //We populate tinyGallery so we can use it in the modal
-                tinyGallery.push(item);
+                tinyGallery.push(item);                
             });
             return;
         }
@@ -141,7 +154,7 @@ document.addEventListener("DOMContentLoaded", function () { //The code will deve
         }
 
         /* We eliminate the content of the DOM to insert it from the database;
-        it won't work if we don't connect with the database and buttons won't appear either*/
+        it won't work if we don't connect with the database and buttons won't appear either
         //let h2 = portfolio.querySelector("h2");
         //if (h2) {
         //    portfolio.removeChild(h2);
@@ -152,7 +165,7 @@ document.addEventListener("DOMContentLoaded", function () { //The code will deve
         //    portfolio.removeChild(gallery);
         //}
 
-        /*Now we create the DOM content dinamically
+        Now we create the DOM content dinamically
         I create element <h2>Mes Projets</h2>
         project = document.createElement("h2");
         project.innerText = "Mes Projets";
@@ -160,10 +173,10 @@ document.addEventListener("DOMContentLoaded", function () { //The code will deve
 
         I create a div to contain my buttons
 
-        Filter choice and call to function.*/
-        if (token == null) {
+        Filter choice and call to function.
+        /*if (token == null) {
             filterForging ();                   
-        }
+        }*/
     });
 
     //This function displays the gallery once called on loading or pressing button.
@@ -199,6 +212,8 @@ let openModal2 = document.getElementById('changeWindow');
 const modal1 = document.querySelector('.firstScreen');
 const modal2 = document.querySelector('.secondScreen');
 const photoAdd = document.querySelector('.formBottom');
+let catSelect="";
+let optSelect="";
 
 document.querySelectorAll(".js-modal").forEach (a => {
     a.addEventListener('click', openModal);    
@@ -219,11 +234,10 @@ function openModal (e) {
     photoAdd.style.visibility = 'hidden';
 
     //We empty the gallery so it does not show the gallery twice, then we show the correct gallery.
-    emptyTinyGallery(); 
-    let tinyPortfolio = tinyGallery;  
+    emptyTinyGallery();
+    let tinyPortfolio = []; 
+    tinyPortfolio = tinyGallery; 
     tinyGalleryDisplay(tinyPortfolio);
-    
-    /*xMark.addEventListener('click', closeModal);*/
 }
 
 function closeModal (e) {
@@ -245,7 +259,7 @@ function closeModal (e) {
 
     //xMark.removeEventListener('click', closeModal);
     seeModal1.style.display = 'none';
-    modal = null;                    
+    modal = null; 
 }
 
 function tinyGalleryDisplay(portfolia) {
@@ -256,12 +270,13 @@ function tinyGalleryDisplay(portfolia) {
 
         let tinyProjectImage = document.createElement("img");
         tinyProjectImage.src = item.imageUrl;
-        tinyProject.appendChild(tinyProjectImage);    
-    });
+        tinyProject.appendChild(tinyProjectImage);
+    });    
     return;
 }
+
 /*We create a function to empty the tiny gallery any time a button is pressed, 
-so it is virgin when we see the selected photos.*/
+so it is brand new when we see the selected photos.*/
 function emptyTinyGallery () {
     let existingTinyGallery = document.querySelector(".modalGallery");
     existingTinyGallery.innerHTML = '';
@@ -269,15 +284,37 @@ function emptyTinyGallery () {
 }
 
 function nextPage () {
+    /*It opens when the "Ajouter 1 photo" is pressed on modal page 1.
+    It charges the categories in the select.*/
     modal1.style.visibility = 'hidden';
     modal2.style.visibility = 'visible';
     photoAdd.style.visibility = 'visible';
+    dropDown ();
 }
 
 function previousPage () {
     modal1.style.visibility = 'visible';
     modal2.style.visibility = 'hidden';
     photoAdd.style.visibility = 'hidden';
+}
+
+function dropDown () {
+    catSelect = document.getElementById('category');
+
+    const blankOption = document.createElement("option");
+    blankOption.value = "";
+    blankOption.textContent = "";
+    blankOption.selected = true;
+    blankOption.disabled = true;
+    catSelect.appendChild(blankOption);
+
+    dropDownCategories.forEach(item => {        
+        optSelect = document.createElement("option");        
+        optSelect.value = item;
+        optSelect.textContent = item;
+        catSelect.appendChild(optSelect);
+        optSelect.classList.add("insideTheBox");
+    })
 }
 
 openModal2.addEventListener('click', nextPage);
