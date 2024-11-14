@@ -116,13 +116,13 @@
 								<img src="./assets/icons/xmark.png" alt="Fermer" class="xMark">
 							</button>
 						</div>
-						<p class="modalTitle sc2">Ajout photo</p>
+						<p class="modalTitle">Ajout photo</p>
 						<form id="addingForm" action="/upload" method="POST" enctype="multipart/form-data">
 							<div class="addWindow">
 								<img src="./assets/icons/add-photo.png" alt="Add a photo" class="addPhoto">
 								<div class="photo-upload">
 									<label for="fileInput" class="file-label">+ Ajouter photo</label>
-									<input type="file" id="fileInput" accept="image/*" class="file-input">
+									<input type="file" id="fileInput" name="photolio" accept=".jpg, .png" class="file-input">
 								</div>
 								<p class="belowButton">jpg, png : 4mo max</p>
 							</div>

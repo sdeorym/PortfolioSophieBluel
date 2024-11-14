@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", function () {
             projectGallery(data);
             filterForging(data);
         } else {
-            /*It it is not active, we go directly to generate the filters.
+            /*If it is not active, we go directly to generate the filters.
             Otherwise, filters won't come out when logging out.*/            
             buttonry(data);
         }
@@ -61,7 +61,6 @@ document.addEventListener("DOMContentLoaded", function () {
             projectNames.forEach((item) =>{
                 dropDownCategories.push(item);
             });
-            console.log(dropDownCategories, dropDownCategories.length);
         }
 
         function buttonry (data) {
@@ -185,6 +184,7 @@ document.addEventListener("DOMContentLoaded", function () {
     callLogoutLogin.addEventListener('click', loggingOut);
 });
 
+//In and out the admin mode
 function loggingIn () { //What happens when we enter edition mode.
     loginLogout.style.display = 'none';
     logoutLogin.style.display = 'block';
@@ -283,6 +283,10 @@ function emptyTinyGallery () {
     return;
 }
 
+//Two functions to pass from one modal page to another.
+
+openModal2.addEventListener('click', nextPage);
+arrow.addEventListener('click', previousPage);
 function nextPage () {
     /*It opens when the "Ajouter 1 photo" is pressed on modal page 1.
     It charges the categories in the select.*/
@@ -298,6 +302,66 @@ function previousPage () {
     photoAdd.style.visibility = 'hidden';
 }
 
+//A function to show the chosen photo
+//We choose the <input> that takes the photo.
+const inputPhoto = document.querySelector(".file-input");
+//We choose the element to lose their transparency.
+const opaque1 = document.querySelector(".addPhoto");
+const opaque2 = document.querySelector(".photo-upload");
+const opaque3 = document.querySelector(".belowButton");
+//We choose the div where the photo will appear
+const photoShow = document.querySelector(".addWindow");
+
+//When we change inputPhoto, we will call a function to display it.
+inputPhoto.addEventListener("change", updateImageDisplay);
+
+function updateImageDisplay() {
+    //'Tis the photo we uploaded
+    const photoFile = inputPhoto;
+    //'Tis the photo type o' file
+    let fileType = photoFile.files[0].type;
+
+    //'Tis the photo size
+    let fileSize = photoFile.files[0].size;
+    
+    //let shownPhoto = document.createElement("div");
+    let typeBool = photoType(fileType);
+    let sizeBool = photoSize(fileSize);
+   
+    if ((typeBool === true) && (sizeBool === true)) {
+        console.log(photoFile.files[0]);        
+        goOpaque();
+        
+        const image = document.createElement("img");
+        image.src = URL.createObjectURL(photoFile.files[0]);
+        console.log(image.src);
+        image.classList.add('newPhoto');
+        photoShow.appendChild(image);
+    }
+}
+function photoType(fileType) {
+    if ((fileType === "image/jpeg") || (fileType === "image/png")) {
+        return true;
+    } else {        
+        alert("Type de fichier non valide.");
+        return false;
+    }
+}
+
+function photoSize(fileSize) {
+    if (fileSize <= 4194304) {
+        return true;
+    } else {        
+        alert("Fichier trop grand.");
+        return false;
+    }
+}
+function goOpaque() {
+    opaque1.style.opacity = 0;
+    opaque2.style.opacity = 0;
+    opaque3.style.opacity = 0;
+}
+//A function to fill the options of form Select.
 function dropDown () {
     catSelect = document.getElementById('category');
 
@@ -316,6 +380,3 @@ function dropDown () {
         optSelect.classList.add("insideTheBox");
     })
 }
-
-openModal2.addEventListener('click', nextPage);
-arrow.addEventListener('click', previousPage);

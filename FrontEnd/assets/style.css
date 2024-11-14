@@ -435,6 +435,17 @@ footer nav ul {
     align-items: start;
 	margin: 10px 0px;
 }
+.newPhoto {
+	position: absolute;
+	max-height: 169px;
+    max-width: 420px;
+    object-fit: contain;
+	padding: -40px;
+	/*margin: 0;
+    padding: 0;
+    display: block; 
+    border: none;*/
+}
 .fieldLabel {
 	font-family: Work Sans;
 	font-size: 14px;
@@ -465,7 +476,7 @@ footer nav ul {
 .down-arrow {
 	width: 11.8px;
 	height: 11.8px;
-	padding: 0px 25px;
+	margin: 0px 50px;
 }
 .formBottom {
 	top:20px;
@@ -488,44 +499,3 @@ footer nav ul {
 	background: #1D6154;
 	cursor: pointer;
 }
-
-
-
-
-
-/*.file-label:hover {
-	transition: background-color 0.3s;
-    background-color: #45a049; /* Color al pasar el ratón por encima */
-/*}*/
-/***
-
-
-
-.modalGallery .icon {
-	width: 17px;
-	height: 17px;
-	margin: 6.43px 0px 0px 7.75px;
-	gap: 0px;
-	opacity: 0px;
-}
-
-#fileInput {
-	display: none;
-}
-  
-  /* Estilos para el contenedor y el botón */
-/***.file-upload {
-	display: inline-block;
-}
-.file-label {
-	font-family: 'Syne';
-	font-weight: 700;
-	color: white;
-	background-color: #1D6154;
-	margin : 2em auto ;
-	width: 180px;
-	text-align: center;
-	border-radius: 60px ;
-}
-
-} ***/
