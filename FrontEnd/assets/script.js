@@ -212,8 +212,8 @@ let openModal2 = document.getElementById('changeWindow');
 const modal1 = document.querySelector('.firstScreen');
 const modal2 = document.querySelector('.secondScreen');
 const photoAdd = document.querySelector('.formBottom');
-let catSelect="";
-let optSelect="";
+let catSelect = document.getElementById('category');
+let j=0;
 
 document.querySelectorAll(".js-modal").forEach (a => {
     a.addEventListener('click', openModal);    
@@ -305,17 +305,20 @@ function previousPage () {
 //A function to show the chosen photo
 //We choose the <input> that takes the photo.
 const inputPhoto = document.querySelector(".file-input");
+
 //We choose the element to lose their transparency.
 const opaque1 = document.querySelector(".addPhoto");
 const opaque2 = document.querySelector(".photo-upload");
 const opaque3 = document.querySelector(".belowButton");
+
 //We choose the div where the photo will appear
 const photoShow = document.querySelector(".addWindow");
 
 //When we change inputPhoto, we will call a function to display it.
 inputPhoto.addEventListener("change", updateImageDisplay);
-
+let imageCheck=[];
 function updateImageDisplay() {
+    console.log(j);
     //'Tis the photo we uploaded
     const photoFile = inputPhoto;
     //'Tis the photo type o' file
@@ -329,14 +332,23 @@ function updateImageDisplay() {
     let sizeBool = photoSize(fileSize);
    
     if ((typeBool === true) && (sizeBool === true)) {
-        console.log(photoFile.files[0]);        
-        goOpaque();
-        
+        goOpaque();    
         const image = document.createElement("img");
         image.src = URL.createObjectURL(photoFile.files[0]);
-        console.log(image.src);
         image.classList.add('newPhoto');
         photoShow.appendChild(image);
+        imageCheck = image;
+        let texting = image.addEventListener("change", checkText);
+        let selecting = image.addEventListener("change", checkSelect);
+        if ((texting === true) && (selecting === true)){
+            buttonActive()
+        }
+    }
+}
+let checkedPhoto;
+function checkPhoto() {
+    if (imageCheck != []) {
+        return checkedPhoto=true;
     }
 }
 function photoType(fileType) {
@@ -347,7 +359,6 @@ function photoType(fileType) {
         return false;
     }
 }
-
 function photoSize(fileSize) {
     if (fileSize <= 4194304) {
         return true;
@@ -361,10 +372,28 @@ function goOpaque() {
     opaque2.style.opacity = 0;
     opaque3.style.opacity = 0;
 }
+
+//When we change inputTitle, we will save it.
+const inputTitle = document.getElementById("title");
+inputTitle.addEventListener("change", updateTitle);
+
+//When we select a category, we save it.
+catSelect.addEventListener("change", updateSelect);
+
+function updateTitle() {
+    console.log(j);
+    if (inputTitle.text === "") {
+        alert('Il faut introduire un titre pour la photo');
+    } else {
+        let imaging = inputTitle.addEventListener("change", checkPhoto);
+        let selecting = inputTitle.addEventListener("change", checkSelect);
+        if ((imaging === true) && (selecting === true)){
+            buttonActive()
+        }
+    }
+}
 //A function to fill the options of form Select.
 function dropDown () {
-    catSelect = document.getElementById('category');
-
     const blankOption = document.createElement("option");
     blankOption.value = "";
     blankOption.textContent = "";
@@ -373,10 +402,47 @@ function dropDown () {
     catSelect.appendChild(blankOption);
 
     dropDownCategories.forEach(item => {        
-        optSelect = document.createElement("option");        
+        let optSelect = document.createElement("option");        
         optSelect.value = item;
         optSelect.textContent = item;
         catSelect.appendChild(optSelect);
         optSelect.classList.add("insideTheBox");
     })
+}
+
+let selectContent;
+function updateSelect() {    
+    let selection = catSelect.options[catSelect.selectedIndex].value;
+    let selectText = catSelect.options[catSelect.selectedIndex].text;
+    console.log(selectText);
+    if (selectText === "") {
+        alert ("Il faut choisir une des trois options réelles.")
+    } else {        
+        let imaging = selection.addEventListener("change", checkPhoto);
+        let texting = selection.addEventListener("change", checkText);
+        if ((imaging === true) && (selecting === true)){
+            buttonActive()
+        }
+    }
+}
+
+let checkedText;
+function checkText() {
+    if (inputTitle.value != "") {
+        return checkedText = true;
+    }
+}
+
+let checkedSelect;
+function checkSelect() {
+    if (TextselectText != "") {
+        return checkedSelect = true;
+    }
+}
+
+function buttonActive() {
+    //Verifica con qué objeto, qué evento y que método se llama a esta función.
+    myButton = document.querySelector(".buttonToAdd");
+    myButton.setAttribute('disabled', 'false');
+    myButton.setAttribute('active', 'true');
 }
