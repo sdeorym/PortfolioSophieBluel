@@ -491,11 +491,9 @@ footer nav ul {
 	gap: 0px;
 	border-radius: 60px 0px 0px 0px;
 	opacity: 0px;
-}
-.buttonToAdd:disabled {
 	background-color: #A7A7A7;
 }
-.buttonToAdd:active {
+.buttonToAddActive {
 	background: #1D6154;
 	cursor: pointer;
 }

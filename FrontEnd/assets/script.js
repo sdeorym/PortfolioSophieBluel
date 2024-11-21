@@ -2,7 +2,8 @@ let loginLogout = document.querySelector('.login_logout');
 let logoutLogin = document.querySelector('.logout_login');
 let dataModal = null;
 let tinyGallery = [];
-let dropDownCategories = []; 
+let token; 
+let theCategories = {};
 
 document.addEventListener("DOMContentLoaded", function () { 
     //The code will develop within this function, once the DOM is completely loaded.
@@ -32,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
         let choice = "";        
         let projectNames;
         let buttonNames;
-        let token = localStorage.getItem('authToken');
+        token = localStorage.getItem('authToken');
 
         if (token) {
             /*If the token is active, we manipulate the DOM to include the black header and the
@@ -46,25 +47,27 @@ document.addEventListener("DOMContentLoaded", function () {
             buttonry(data);
         }
         
-        function filterForging (data) {
-            let filteredData;            
+        function filterForging (data) {                       
             let categoryNames = [];
+            let categoryId = [];
+            let catProof = {};
             
             // We create the categories name lists to create the buttons.
             // We put categoryNames in an array.
             data.forEach((item) => {
                 categoryNames.push(item.category.name);
+                categoryId.push(item.category.id);
+                catProof [item.category.id] = item.category.name;
             });
+
+            theCategories = catProof;
             projectNames = new Set(categoryNames);
-            
-            //We introduce the categories in dropDownCategories so we'll use them later.
-            projectNames.forEach((item) =>{
-                dropDownCategories.push(item);
-            });
+
         }
 
         function buttonry (data) {
             filterForging (data);
+            let filteredData; 
 
             /* We add a category 'Tous' at the beginning of the array so we have
             all filter buttons*/
@@ -213,8 +216,37 @@ const modal1 = document.querySelector('.firstScreen');
 const modal2 = document.querySelector('.secondScreen');
 const photoAdd = document.querySelector('.formBottom');
 let catSelect = document.getElementById('category');
-let j=0;
+const myButton = document.querySelector('.buttonToAdd');
+const form = document.querySelector("#addingForm");
 
+
+/*** Here the variables for the form on modal 2nd screen.***/
+//A function to show the chosen photo
+//We choose the <input> that takes the photo.
+const inputPhoto = document.querySelector(".file-input");
+
+//We choose the div where the photo will appear
+const photoShow = document.querySelector(".addWindow");
+
+//We choose the elements that lose their transparency.
+const opaque1 = document.querySelector(".addPhoto");
+const opaque2 = document.querySelector(".photo-upload");
+const opaque3 = document.querySelector(".belowButton");
+
+//When we change inputPhoto, we will call a function to display it.
+inputPhoto.addEventListener("change", updateImageDisplay);
+
+//When we change inputTitle, we will save it.
+const inputTitle = document.getElementById("title");
+inputTitle.addEventListener("change", updateTitle);
+
+//When we select a category, we save it.
+catSelect.addEventListener("change", updateSelect);
+
+//Two functions to pass from one modal page to another.
+openModal2.addEventListener('click', nextPage);
+arrow.addEventListener('click', previousPage);
+//We call the functions to open and close the modal.
 document.querySelectorAll(".js-modal").forEach (a => {
     a.addEventListener('click', openModal);    
 })
@@ -223,6 +255,7 @@ document.querySelectorAll(".xMark").forEach (b => {
     b.addEventListener('click', closeModal);    
 })
 
+/* Two functions to open/close the modal, then two functions to switch the page when open. */
 function openModal (e) {
     e.preventDefault();
     //We turn to visible both modal and first page
@@ -239,7 +272,6 @@ function openModal (e) {
     tinyPortfolio = tinyGallery; 
     tinyGalleryDisplay(tinyPortfolio);
 }
-
 function closeModal (e) {
     //We do nothing when modal is null
     if (modal === null) {
@@ -247,6 +279,8 @@ function closeModal (e) {
     }
     //We prevent the action default of the event (if any)
     e.preventDefault();
+    //We empty the form on page 2, if needed
+    //emptyForm;
     /*if (e.target === modalOverlay || e.target === xMark) {
         xMark.removeEventListener('click', closeModal);
         modalOverlay.style.display = 'none';
@@ -261,7 +295,25 @@ function closeModal (e) {
     seeModal1.style.display = 'none';
     modal = null; 
 }
+function nextPage () {
+    /*It opens when the "Ajouter 1 photo" is pressed on modal page 1.
+    It charges the categories in the select.*/
+    modal1.style.visibility = 'hidden';
+    modal2.style.visibility = 'visible';
+    photoAdd.style.visibility = 'visible';
+    dropDown ();
+    myButton.classList.remove('buttonToAddActive');
+    myButton.disabled = true;
+}
+function previousPage () {
+    //We empty the form on page 2, if needed
+    //emptyForm;
+    modal1.style.visibility = 'visible';
+    modal2.style.visibility = 'hidden';
+    photoAdd.style.visibility = 'hidden';    
+}
 
+//Functions to display the gallery.
 function tinyGalleryDisplay(portfolia) {
     let modalPortfolio = document.querySelector(".modalGallery");
     portfolia.forEach(item => {
@@ -274,7 +326,6 @@ function tinyGalleryDisplay(portfolia) {
     });    
     return;
 }
-
 /*We create a function to empty the tiny gallery any time a button is pressed, 
 so it is brand new when we see the selected photos.*/
 function emptyTinyGallery () {
@@ -283,44 +334,13 @@ function emptyTinyGallery () {
     return;
 }
 
-//Two functions to pass from one modal page to another.
-
-openModal2.addEventListener('click', nextPage);
-arrow.addEventListener('click', previousPage);
-function nextPage () {
-    /*It opens when the "Ajouter 1 photo" is pressed on modal page 1.
-    It charges the categories in the select.*/
-    modal1.style.visibility = 'hidden';
-    modal2.style.visibility = 'visible';
-    photoAdd.style.visibility = 'visible';
-    dropDown ();
-}
-
-function previousPage () {
-    modal1.style.visibility = 'visible';
-    modal2.style.visibility = 'hidden';
-    photoAdd.style.visibility = 'hidden';
-}
-
-//A function to show the chosen photo
-//We choose the <input> that takes the photo.
-const inputPhoto = document.querySelector(".file-input");
-
-//We choose the element to lose their transparency.
-const opaque1 = document.querySelector(".addPhoto");
-const opaque2 = document.querySelector(".photo-upload");
-const opaque3 = document.querySelector(".belowButton");
-
-//We choose the div where the photo will appear
-const photoShow = document.querySelector(".addWindow");
-
-//When we change inputPhoto, we will call a function to display it.
-inputPhoto.addEventListener("change", updateImageDisplay);
-let imageCheck=[];
+//Functions to fill in the form to update the portfolio
+//Uploading the photo and showing it.
+let keptImage;
 function updateImageDisplay() {
-    console.log(j);
-    //'Tis the photo we uploaded
+    //'Tis the photo we upload
     const photoFile = inputPhoto;
+
     //'Tis the photo type o' file
     let fileType = photoFile.files[0].type;
 
@@ -337,18 +357,8 @@ function updateImageDisplay() {
         image.src = URL.createObjectURL(photoFile.files[0]);
         image.classList.add('newPhoto');
         photoShow.appendChild(image);
-        imageCheck = image;
-        let texting = image.addEventListener("change", checkText);
-        let selecting = image.addEventListener("change", checkSelect);
-        if ((texting === true) && (selecting === true)){
-            buttonActive()
-        }
-    }
-}
-let checkedPhoto;
-function checkPhoto() {
-    if (imageCheck != []) {
-        return checkedPhoto=true;
+        keptImage = image.src;
+        fieldCheck();
     }
 }
 function photoType(fileType) {
@@ -372,26 +382,17 @@ function goOpaque() {
     opaque2.style.opacity = 0;
     opaque3.style.opacity = 0;
 }
-
-//When we change inputTitle, we will save it.
-const inputTitle = document.getElementById("title");
-inputTitle.addEventListener("change", updateTitle);
-
-//When we select a category, we save it.
-catSelect.addEventListener("change", updateSelect);
-
+//Updating the title of the photo.
 function updateTitle() {
-    console.log(j);
-    if (inputTitle.text === "") {
+    let realTitle = inputTitle.value;
+    if (realTitle === "") {
         alert('Il faut introduire un titre pour la photo');
     } else {
-        let imaging = inputTitle.addEventListener("change", checkPhoto);
-        let selecting = inputTitle.addEventListener("change", checkSelect);
-        if ((imaging === true) && (selecting === true)){
-            buttonActive()
-        }
+        fieldCheck();
     }
 }
+
+//Updating the category (first we fill in the options, then update)
 //A function to fill the options of form Select.
 function dropDown () {
     const blankOption = document.createElement("option");
@@ -401,48 +402,90 @@ function dropDown () {
     blankOption.disabled = true;
     catSelect.appendChild(blankOption);
 
-    dropDownCategories.forEach(item => {        
-        let optSelect = document.createElement("option");        
-        optSelect.value = item;
-        optSelect.textContent = item;
+    //'use strict';
+    for (const [key, name] of Object.entries(theCategories)) {
+        let optSelect = document.createElement("option");
+        optSelect.value = key;
+        optSelect.textContent = name;
         catSelect.appendChild(optSelect);
         optSelect.classList.add("insideTheBox");
-    })
+    }
 }
 
-let selectContent;
-function updateSelect() {    
+function updateSelect() {  
     let selection = catSelect.options[catSelect.selectedIndex].value;
     let selectText = catSelect.options[catSelect.selectedIndex].text;
-    console.log(selectText);
     if (selectText === "") {
         alert ("Il faut choisir une des trois options réelles.")
-    } else {        
-        let imaging = selection.addEventListener("change", checkPhoto);
-        let texting = selection.addEventListener("change", checkText);
-        if ((imaging === true) && (selecting === true)){
-            buttonActive()
-        }
+    } else {   
+        fieldCheck();
     }
 }
 
-let checkedText;
-function checkText() {
-    if (inputTitle.value != "") {
-        return checkedText = true;
+function fieldCheck() {
+    let texting = inputTitle.value;
+    let selecting = catSelect.value;
+    if ((keptImage != '') && (texting != '') && (selecting != '')){
+        buttonActive();
     }
 }
-
-let checkedSelect;
-function checkSelect() {
-    if (TextselectText != "") {
-        return checkedSelect = true;
-    }
-}
-
 function buttonActive() {
-    //Verifica con qué objeto, qué evento y que método se llama a esta función.
-    myButton = document.querySelector(".buttonToAdd");
-    myButton.setAttribute('disabled', 'false');
-    myButton.setAttribute('active', 'true');
+    myButton.classList.add('buttonToAddActive');
+    myButton.disabled = false;
+    //Desde aquí tienes que llamar a la función asíncrona para el post.
+    form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const formData = new FormData();
+        formData.append("title", inputTitle.value);
+        formData.append("imageUrl", keptImage);
+        formData.append("category", catSelect.selectedIndex);
+        sendData(formData);
+      });
 }
+async function sendData() {
+    // We associate the formData object with the form element
+    const data = new FormData();
+    try {
+      const response = await fetch("http://localhost:5678/api/works", {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json',  
+            'BearerAuth': token   
+        },
+        // Set the FormData instance as the request body
+        body: JSON.stringify(data)
+      });
+      console.log("lo que responde jason al enviar", await response.json());
+    } catch (e) {
+      console.error(e);
+    }
+
+};
+
+/*He intentado postear un producto con los datos existentes el form de html.
+Me ha mandado un mensaje 401 (no autoriçado). Hace falta el token.
+El token está arriba, en la función asíncrona get. Habrá que declararlo fuera y que cobre valor
+en la función asíncrona y así se podrá invocar al validar el formulario.
+Una vez hecho eso, ver si permite meter el formulario tal cual o hay que hacerle más adaptaciones.*/
+
+
+
+
+
+
+
+
+/*function emptyForm() {
+    const preview = document.querySelector("newPhoto");
+    preview.src = '';
+    preview.style.display = 'none';
+    const title = document.getElementById("title");
+    title.value='';
+    const select=document.getElementById("category");
+    select.value='';
+    document.getElementById('addingForm').reset();    
+    opaque1.style.opacity = 1;
+    opaque2.style.opacity = 1;
+    opaque3.style.opacity = 1;
+}*/
+
