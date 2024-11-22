@@ -358,6 +358,7 @@ function updateImageDisplay() {
         image.classList.add('newPhoto');
         photoShow.appendChild(image);
         keptImage = image.src;
+
         fieldCheck();
     }
 }
@@ -429,37 +430,40 @@ function fieldCheck() {
         buttonActive();
     }
 }
+
 function buttonActive() {
+    let dataToSend = {};
     myButton.classList.add('buttonToAddActive');
     myButton.disabled = false;
     //Desde aquí tienes que llamar a la función asíncrona para el post.
     form.addEventListener("submit", (event) => {
         event.preventDefault();
-        const formData = new FormData();
-        formData.append("title", inputTitle.value);
-        formData.append("imageUrl", keptImage);
-        formData.append("category", catSelect.selectedIndex);
-        sendData(formData);
-      });
+        dataToSend["title"] = inputTitle.value;
+        dataToSend["imageUrl"] = keptImage;
+        dataToSend["category"] = parseInt(catSelect.selectedIndex, 10);
+        sendData(dataToSend);        
+    })
 }
-async function sendData() {
+
+async function sendData(data) {
     // We associate the formData object with the form element
-    const data = new FormData();
+    let tokenable = 'Bearer ' + token;
+    let dataToSend = JSON.stringify(data);
+    console.log("Los datos", data, "El stringified", dataToSend, JSON.stringify(data));
     try {
       const response = await fetch("http://localhost:5678/api/works", {
         method: "POST",
         headers: {
             'Content-Type': 'application/json',  
-            'BearerAuth': token   
+            'Authorization': tokenable   
         },
         // Set the FormData instance as the request body
-        body: JSON.stringify(data)
+        body: dataToSend        
       });
       console.log("lo que responde jason al enviar", await response.json());
     } catch (e) {
       console.error(e);
     }
-
 };
 
 /*He intentado postear un producto con los datos existentes el form de html.

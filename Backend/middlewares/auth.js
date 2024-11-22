@@ -1,9 +1,10 @@
 const jwt = require('jsonwebtoken')
 
-module.exports = (req, res, next) => {
+module.exports = (req, res, next) => {	
 	try {
-		console.log(req.headers.authorization);
+		console.log("Estamos en auth.js", req.headers.authorization);
 		const token = req.headers.authorization.split(' ')[1]
+		console.log("token después de splitar", token);
 		const decodedToken = jwt.verify(token, process.env.TOKEN_SECRET)
 		const userId = decodedToken.userId
 		req.auth = { userId }
