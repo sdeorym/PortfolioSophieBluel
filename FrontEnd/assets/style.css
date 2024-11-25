@@ -317,6 +317,7 @@ footer nav ul {
 	position: absolute;
 	top: 25px;	
 }
+
 .page1 {
 	justify-content: end;
 	left:570px;
@@ -363,12 +364,44 @@ footer nav ul {
 	background-color:#FFF;
 	align-self: center;
 }
+.modalGallery figure {
+	position: relative;
+}
+
 .modalGallery img {
 	width: 76.61px;
 	height: 102.57px;
 	gap: 0px;
-	opacity: 0px;
+	opacity: 1;
 }
+
+/*.modalGallery i {
+	width: 17px;
+	height: 17px;	
+}*/
+.modalGallery svg /*.dustBinIcon*/ {
+	width: 17px;
+	height: 17px;
+	fill: #FFFFFF;
+	background-color: #000;
+	position: absolute;
+	z-index: 10000;
+	padding: 2px;
+	top: 3px;
+	right: 3px;
+}
+
+/*
+.modalCanvas {
+	width: 76.61px;
+	height: 102.57px;
+	gap: 0px;
+	opacity: 1;
+}
+.iconDelete {
+
+	/*55px a la izda y 6px hacia arriiba}*/
+
 .horLine {
 	width: 420.3px;
 	border-bottom: 1px solid #B3B3B3;
