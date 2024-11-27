@@ -493,25 +493,46 @@ function delatable () {
 let delId;
 function chooseWork (event) {
     let hypothesis = event.target.nodeName;
-    console.log ("La hipótesis.", hypothesis);
     let childId = event.target.id;
     let parentId= event.target.parentElement.id;
     let delatableId;
-    console.log ("La hipótesis.", hypothesis);
     
     //By this conditional we choose the correct work to eliminate.
     if (hypothesis === 'svg') {
         delatableId = childId;
-        console.log ("childId:", childId, delatableId);
     } else if (hypothesis === 'path') {
         delatableId = parentId;
-        console.log ("parentId:", parentId, delatableId);
     } else {
         console.log ("Syntax error.");
     }
     
     delId = parseInt(delatableId.replace(/\D/g, ''));
-    console.log ("Quieres eliminar ", delId);
+    console.log ("El trabajo que se borra ", delId);
+    workDelete(delId);
+}
+
+function workDelete (work) {
+    // We associate the formData object with the form element
+    let endPoint = "http://localhost:5678/api/works/" + work;
+    let tokenable = 'BearerAuth:' + token;
+    try {
+        const response = fetch(endPoint, {
+        method: "DELETE",
+        headers: {
+            'Content-Type': 'application/json',  
+            'Authorization': tokenable   
+        },
+        // Set the FormData instance as the request body
+        //body:{}
+                    
+    });
+
+    console.log("Ola ke ase, borra ", work, "o ke ase"); 
+    console.log("lo que responde jason al enviar", response/*.json()*/);
+
+    } catch (e) {
+        console.error(e);
+    }
 }
 
 //);gonnaDelete.addEventListener("click", chooseWork);
