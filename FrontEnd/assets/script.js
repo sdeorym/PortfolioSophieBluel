@@ -469,19 +469,22 @@ async function sendData(data) {
     let dataToSend = JSON.stringify(data);
     console.log("Los datos", data, "El stringified", dataToSend, JSON.stringify(data));
     try {
-      const response = await fetch("http://localhost:5678/api/works", {
-        method: "POST",
-        headers: {
-            'Content-Type': 'application/json',  
-            'Authorization': tokenable   
-        },
-        // Set the FormData instance as the request body
-        body: dataToSend        
-      });
-      console.log("lo que responde jason al enviar", await response.json());
-    } catch (e) {
-      console.error(e);
-    }
+        const response = await fetch("http://localhost:5678/api/works", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'multipart/form-data',  
+                'Authorization': tokenable   
+            },
+            // Set the FormData instance as the request body
+            body: dataToSend        
+        });
+        const status = response; 
+            return status;
+        } catch (err) {
+            // handle error
+            console.error(err);
+        }
+        
 };
 
 function delatable () {
@@ -523,13 +526,10 @@ function workDelete (work) {
             'Authorization': tokenable   
         },
         // Set the FormData instance as the request body
-        //body:{}
-                    
+        //body:{}                    
     });
-
     console.log("Ola ke ase, borra ", work, "o ke ase"); 
     console.log("lo que responde jason al enviar", response/*.json()*/);
-
     } catch (e) {
         console.error(e);
     }
