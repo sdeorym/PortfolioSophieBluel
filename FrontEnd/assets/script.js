@@ -115,16 +115,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function projectGallery(portfolium) {
-      /* Clear existing gallery content
-            let portfolio = document.querySelector(".gallery");
-            const existingGallery = document.querySelector("#portfolio .gallery");
-            if (existingGallery) {
-                existingGallery.remove();
-            }    
-             Create new gallery div
-            const newGallery = document.createElement("div");
-            newGallery.classList.add("gallery");
-            portfolio.appendChild(newGallery);*/
       let portfolio = document.querySelector(".gallery");
 
       portfolium.forEach((item) => {
@@ -154,26 +144,6 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
 
-    /* We eliminate the content of the DOM to insert it from the database;
-        it won't work if we don't connect with the database and buttons won't appear either
-        //let h2 = portfolio.querySelector("h2");
-        //if (h2) {
-        //    portfolio.removeChild(h2);
-        //}
-        //let gallery = portfolio.querySelector("div.gallery");
-        //if (gallery) {
-        //    portfolio.removeChild(gallery);
-        //}
-        Now we create the DOM content dinamically
-        I create element <h2>Mes Projets</h2>
-        project = document.createElement("h2");
-        project.innerText = "Mes Projets";
-        portfolio.appendChild(project);
-        I create a div to contain my buttons
-        Filter choice and call to function.
-        /*if (token == null) {
-            filterForging ();                   
-        }*/
   });
 
   //This function displays the gallery once called on loading or pressing button.
@@ -213,6 +183,7 @@ const modal1 = document.querySelector(".firstScreen");
 const modal2 = document.querySelector(".secondScreen");
 const photoAdd = document.querySelector(".formBottom");
 let catSelect = document.getElementById("category");
+catSelect.required = true;
 const myButton = document.querySelector(".buttonToAdd");
 const form = document.querySelector("#addingForm");
 let workId = [];
@@ -280,12 +251,6 @@ function closeModal(e) {
   e.preventDefault();
   //We empty the form on page 2, if needed
   //emptyForm;
-  /*if (e.target === modalOverlay || e.target === xMark) {
-        xMark.removeEventListener('click', closeModal);
-        modalOverlay.style.display = 'none';
-        seeModal1.style.display = 'none';
-        modal = null;
-        }*/
   modalOverlay.style.visibility = "hidden";
   modal2.style.visibility = "hidden";
   photoAdd.style.visibility = "hidden";
@@ -426,7 +391,6 @@ function dropDown() {
     optSelect.classList.add("insideTheBox");
   }
 }
-
 function updateSelect() {
   let selection = catSelect.options[catSelect.selectedIndex].value;
   let selectText = catSelect.options[catSelect.selectedIndex].text;
@@ -436,7 +400,6 @@ function updateSelect() {
     fieldCheck();
   }
 }
-
 function fieldCheck() {
   let texting = inputTitle.value;
   let selecting = catSelect.value;
@@ -444,12 +407,11 @@ function fieldCheck() {
     buttonActive();
   }
 }
-
 function buttonActive() {
   let dataToSend = {};
   myButton.classList.add("buttonToAddActive");
   myButton.disabled = false;
-  //Desde aquí tienes que llamar a la función asíncrona para el post.
+  //From here we call the async function to POST
   form.addEventListener("submit", (event) => {
     event.preventDefault();
     dataToSend["title"] = inputTitle.value;
@@ -458,15 +420,12 @@ function buttonActive() {
     sendData(dataToSend);
   });
 }
-
 //The method POST is deployed here.
 async function sendData(data) {
   let tokenable = "Bearer " + token;
 
-  // J'ai ajouté ici le FormData pour respecter l'envoi en multipart/form-data
-  // ça recrée un formulaire
+  // Here we recreate formData to respect the POST as multipart/form-data
   let formData = new FormData();
-
   formData.append("title", data.title);
   formData.append("category", data.category);
   formData.append("image", inputPhoto?.files[0] || null);
@@ -507,7 +466,6 @@ function chooseWork(event) {
   }
 
   delId = parseInt(delatableId.replace(/\D/g, ""));
-  console.log("El trabajo que se borra ", delId);
   workDelete(delId);
 }
 
@@ -529,36 +487,3 @@ function workDelete(work) {
     console.error(e);
   }
 }
-
-//);gonnaDelete.addEventListener("click", chooseWork);
-/*function chooseWork() {
-    const gonnaDeleteById = gonnaDelete.id;
-    console.log(gonnaDeleteById);        
-}*/
-
-/*const response = await fetch("http://localhost:5678/api/works{}", {
-    let tokenable = 'Bearer ' + token;
-    method: "DELETE",
-    headers: {
-        'Authorization': tokenable   
-    },*/
-
-/*He intentado postear un producto con los datos existentes el form de html.
-Me ha mandado un mensaje 401 (no autoriçado). Hace falta el token.
-El token está arriba, en la función asíncrona get. Habrá que declararlo fuera y que cobre valor
-en la función asíncrona y así se podrá invocar al validar el formulario.
-Una vez hecho eso, ver si permite meter el formulario tal cual o hay que hacerle más adaptaciones.*/
-
-/*function emptyForm() {
-    const preview = document.querySelector("newPhoto");
-    preview.src = '';
-    preview.style.display = 'none';
-    const title = document.getElementById("title");
-    title.value='';
-    const select=document.getElementById("category");
-    select.value='';
-    document.getElementById('addingForm').reset();    
-    opaque1.style.opacity = 1;
-    opaque2.style.opacity = 1;
-    opaque3.style.opacity = 1;
-}*/

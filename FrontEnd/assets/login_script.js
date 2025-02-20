@@ -25,26 +25,21 @@ document.addEventListener('DOMContentLoaded', function () {
             switch (response.status) {
                 case 500:
                     alert('Erreur du serveur');
-                    console.log('naranjas de la china');
                     break;
                 case 404:
                     alert('Utilisateur inconnu.');
-                    console.log('naranjas de la china, mandarinas');
                     break;
                 case 401:
                     alert('Utilisateur non autorisé');
-                    console.log('naranjas de la china, tangerines');
                     break;
                 case 200:
                     // Store the token in the local storage (so we can reuse them in the 'admin' calls)
                     localStorage.setItem('authToken', data.token);
                     token = data.token;
                     window.location.href = './index.html';
-                    console.log(token);
                     return token;
                 default:
                     alert('Erreur unconnue');
-                    console.log('naranjas de la china, limones');
                     window.location.href = './login.html';
                     break;
             }           
@@ -67,6 +62,5 @@ document.addEventListener('DOMContentLoaded', function () {
         let password = document.getElementById('password').value;
         
         token = login(email, password);
-        console.log(token);
     });
 });
