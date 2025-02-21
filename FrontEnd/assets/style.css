@@ -223,22 +223,28 @@ footer nav ul {
 #login_forgotten_password {
 	text-decoration: underline;
 }
-.projectTitle {
-	display: inline; /*.modify_projects will be on the very same line*/
-	margin-left: 25px; 
-}
 .modify_projects {
+	display: grid;
+	grid-auto-columns: auto auto;
+	text-align: center;
+	color: #000;
+	display: none;
+	height: 30px;
+	gap: 25px;
+	padding-bottom: 30px;
+}
+.projectsTitle {
+	display: inline; /*.modify_projects will be on the very same line*/
+	padding-right: 10px;
+}
+.modify_projects > a {
 	font-family: 'Work Sans';
 	font-weight: 400;
 	font-size: 14px;
 	line-height: 16.42px;
-	text-align: center;
-	color: #000;
-	display: none;
-}
-.modify_projects > a {
     text-decoration: none;  
     color: inherit;
+	margin: -30px -25px 0 0;
 }
 
 /*** MODAL WINDOW***/
