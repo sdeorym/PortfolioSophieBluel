@@ -78,7 +78,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       /* We search the element <h2> in portfolio section and we insert the
             filter container just after <h2>*/
-      let portfolioTitle = document.querySelector("#portfolio h2");
+      let portfolioTitle = document.querySelector(".portfolio h2");
       portfolioTitle.insertAdjacentElement("afterend", container);
 
       let portfolioData = data;

@@ -223,7 +223,7 @@ footer nav ul {
 #login_forgotten_password {
 	text-decoration: underline;
 }
-.modify_projects {
+.portfolio_header {
 	display: grid;
 	grid-auto-columns: auto auto;
 	text-align: center;
