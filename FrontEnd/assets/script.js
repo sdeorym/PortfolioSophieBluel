@@ -78,7 +78,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       /* We search the element <h2> in portfolio section and we insert the
             filter container just after <h2>*/
-      let portfolioTitle = document.querySelector(".portfolio h2");
+      let portfolioTitle = document.querySelector("#portfolio h2");
       portfolioTitle.insertAdjacentElement("afterend", container);
 
       let portfolioData = data;
@@ -90,6 +90,8 @@ document.addEventListener("DOMContentLoaded", function () {
       }
       buttonClick = document.querySelectorAll("#portfolio .filters button");
       buttonClick[0].classList.add("active");
+      console.log(document.querySelector(".filters"));
+
 
       emptyGallery();
       projectGallery(portfolioData);
@@ -160,6 +162,7 @@ function loggingIn() {
   document.querySelector(".edition_bar").style.display = "block";
   document.querySelector(".edition_bar_text").style.display = "block";
   document.querySelector(".modify_projects").style.display = "block";
+  document.querySelector("#portfolio h2").style.display = "none";
 }
 
 function loggingOut() {
@@ -169,6 +172,7 @@ function loggingOut() {
   document.querySelector(".edition_bar").style.display = "none";
   document.querySelector(".edition_bar_text").style.display = "none";
   document.querySelector(".modify_projects").style.display = "none";
+  document.querySelector("#portfolio h2").style.display = "block";
   localStorage.removeItem("authToken");
   window.location.reload(true);
 }
