@@ -19,9 +19,6 @@ footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, a
 article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
 	display: block;
 }
-body {
-	line-height: 1;
-}
 ol, ul {
 	list-style: none;
 }
@@ -42,6 +39,8 @@ body {
 	margin:auto;
 	font-family: 'Work Sans';
 	font-size: 14px;
+	line-height: 1;
+	overflow-x: hidden;
 }
 .edition_bar{
 	background-color: #000;
@@ -61,15 +60,18 @@ body {
 	display: none;
 	padding: 20px 0;
 }
+.edition_bar_text a  {
+	color: #FFF;
+}
 header {
 	display: flex;
 	justify-content: space-between;
-	margin: 50px 0;
-	width: 1140px;
+	width: 100%;
 	height: 42px;
+	margin: 50px 0px;
 }
-section {
-	margin: 50px 0
+main {
+	margin: 0 50px;
 }
 h1{
 	display: flex;
@@ -92,22 +94,32 @@ h2{
 }
 nav ul {
 	display: flex;
-	align-items: center;
 	list-style-type: none;
+	width: 27.98%;
+	padding-right: 0px;
+	vertical-align: middle;
 }
 nav li {
-	padding: 0 10px;
 	font-size: 1.2em;
+	padding: 11.5px 0px 11.5px 22px;
+}
+.instalink {
+	padding: 0;
+	margin: 0;
 }
 li:hover {
 	color: #B1663C;
 }
 .logout_login {
 	display: none;
+	padding: 0px 22px;
 }	
 #introduction {
 	display: flex;
 	align-items: center;
+	width: 950px;
+	gap: 72px;
+	margin: 39px 0px 139px 0px;	
 }
 #introduction figure {
 	flex: 1
@@ -115,10 +127,15 @@ li:hover {
 #introduction img {
 	display: block;
 	margin: auto;
-	width: 80%;
+	width: 474px;
+	top: 355px;
 }
 #introduction article {
-	flex: 1
+	flex: 1;
+	width: 404px;
+	height: 192px;
+	top: 340px;
+	left: 72px;
 }
 #introduction h2 {
 	margin-bottom: 1em;
@@ -128,12 +145,11 @@ li:hover {
 }
 #portfolio h2 {
 	text-align: center;
-	margin-bottom: 1em;
 }
 .filters {
-	margin: 0 29% 40px 29%;
-	align-self: center;
+	margin: 50px auto;
 	display: grid;
+	width: 585px;
 	grid-template-columns: 100px 100px 157px 198px;
 	grid-column-gap: 10px;
 	height: 38px;	
@@ -156,18 +172,18 @@ li:hover {
 	color: #FFF;
 }
 .gallery {
-	width: 100%;
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr;
-	grid-column-gap: 20px;
+	grid-column-gap: 17.5px;
 	grid-row-gap: 20px;
 }
 .gallery img {
 	width: 100%;
+	height: 407px;
 }
 #contact {
 	width: 50%;
-	margin: auto;
+	margin: 50px auto auto auto;
 }
 #contact > * {
 	text-align: center;
@@ -205,15 +221,12 @@ input[type="submit"] {
 	border-radius: 60px ;
 }
 footer nav ul {
-	display: flex;
-	justify-content: flex-end;
-	margin: 2em
+	margin: 2em 0px 2em 85%;
+	height: 60px;
 }
 .loginnav {
 	font-weight: 600;
-}
-.loginfooter {
-	margin-top: 250px;
+	padding: 11.5px 22px 11.5px 22px;
 }
 .belowButton {
 	color: #3D3D3D;
@@ -231,7 +244,7 @@ footer nav ul {
 	display: none;
 	height: 30px;
 	gap: 25px;
-	padding-bottom: 30px;
+	padding-bottom: 93px;
 }
 .projectsTitle {
 	display: inline;
@@ -279,7 +292,7 @@ footer nav ul {
 	flex-direction:column;
 	align-items: center;
 	width: 630px;
-	height: 670px;
+	height: 688px;
 	top: 660px;
 	left: 405px;
 	background-color:#fff;
@@ -302,25 +315,28 @@ footer nav ul {
 	opacity: 1;
 }
 .secondScreen {
-	top: -600px;
+	top: -620px;
 	visibility:hidden;
 	position: relative;
 	display: flex;
     flex-direction: column;
-    align-items: center;
+    align-self: center;
+	margin: 0 auto;
     justify-content: space-evenly;
     width: 100%;
 	height:670px;
     gap: 15px;
 	box-sizing: content-box;
 	z-index: 100000;
+	/*left: 100px;*/
 	opacity: 1;	
 }
+
 .iconButton {
 	display: flex;
 	flex-direction: row;
 	position: absolute;
-	top: 25px;	
+	top: 25px;
 }
 .page1 {
 	justify-content: end;
@@ -398,7 +414,7 @@ footer nav ul {
 	width: 420.3px;
 	border-bottom: 1px solid #B3B3B3;
 	align-self: center;
-	padding: 10px 0px;
+	padding: 30px 48px ;
 }
 .modalButton {
 	background-color: #1D6154;
@@ -413,9 +429,10 @@ footer nav ul {
     cursor: pointer;
     width: 237px;
     height: 36px;
-    margin: 0;
     align-self: center;
-	margin: 10px 0px 0px;
+}
+#addingForm {
+	margin-left: 100px;
 }
 .addWindow {
 	width: 420px;
@@ -504,10 +521,11 @@ footer nav ul {
 	top:20px;
 	display: flex;
     flex-direction: column;
-    align-items: center;
+    align-self: center;
 	position:relative;
+	margin: -25px 40px 0 -50px;
 }
-.buttonToAdd:disabled {
+.buttonToAdd {
     color: #FFF;
     border-radius: 60px;
     font-family: 'Syne', sans-serif;
@@ -520,10 +538,11 @@ footer nav ul {
     height: 36px;
     margin: 0;
     align-self: center;
-	margin: 10px 0px 0px;
+	margin: 25px 0px 0px;
 	background-color: #A7A7A7;
+	cursor:default
 }
-.buttonToAdd:enabled {
+.buttonToSend {
 	cursor: pointer;
 	background-color: #1D6154;
     border-radius: 60px;

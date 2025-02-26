@@ -15,7 +15,7 @@
 	<body>
 	<!-- Superior bar-->
 		<div class="edition_bar">
-			<span class="edition_bar_text"><img src="./assets/icons/editionwhite.png" alt="Edition"> Mode édition</span>
+			<span class="edition_bar_text"><a href="#laModale" class="js-modal"><img src="./assets/icons/editionwhite.png" alt="Edition">Mode édition</a></span>
 		</div>
 		<header>
 			<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
@@ -53,12 +53,12 @@
 			</section>
 			<section id="environment">			
 				<div id="laModale" class="modal" aria-hidden="true" role="dialog">
-					<div class="modal-overlay"></div>			
-					<div class="modal-wrapper">
+					<div class="modal-overlay closure"></div>			
+					<div class="modal-wrapper" id="modalWindow">
 						<div class="firstScreen">
 							<div class="iconButton page1">
 								<button class="closingIcon">
-									<img src="./assets/icons/xmark.png" alt="Fermer" class="xMark">
+									<img src="./assets/icons/xmark.png" alt="Fermer" class="xMark closure">
 								</button>
 							</div>						
 							<p class="modalTitle">Galerie photo</p>
@@ -73,7 +73,7 @@
 									<img src="./assets/icons/arrow-left.png" alt="Retour" class="leftArrow">
 								</button>
 								<button class="closingIcon">
-									<img src="./assets/icons/xmark.png" alt="Fermer" class="xMark">
+									<img src="./assets/icons/xmark.png" alt="Fermer" class="xMark closure">
 								</button>
 							</div>
 							<p class="modalTitle">Ajout photo</p>
@@ -94,7 +94,7 @@
 								</div>
 								<div class="formBottom">
 									<div class="horLine lineTwo"></div>
-									<input type="submit" value="Valider" class="buttonToAdd" disabled>
+									<input type="submit" value="Valider" class="buttonToAdd">
 								</div>
 							</form>
 						</div>	

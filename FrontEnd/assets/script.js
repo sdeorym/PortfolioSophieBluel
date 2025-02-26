@@ -44,6 +44,7 @@ document.addEventListener("DOMContentLoaded", function () {
     } else {
       /*If it is not active, we go directly to generate the filters.
             Otherwise, filters won't come out when logging out.*/
+      document.querySelector("#portfolio h2").style.display = "block";
       buttonry(data);
     }
 
@@ -172,7 +173,7 @@ function loggingOut() {
   document.querySelector(".edition_bar").style.display = "none";
   document.querySelector(".edition_bar_text").style.display = "none";
   document.querySelector(".modify_projects").style.display = "none";
-  document.querySelector("#portfolio h2").style.display = "block";
+  //
   localStorage.removeItem("authToken");
   window.location.reload(true);
 }
@@ -224,7 +225,7 @@ document.querySelectorAll(".js-modal").forEach((a) => {
   a.addEventListener("click", openModal);
 });
 
-document.querySelectorAll(".xMark").forEach((b) => {
+document.querySelectorAll(".closure").forEach((b) => {
   b.addEventListener("click", closeModal);
 });
 
@@ -259,7 +260,6 @@ function closeModal(e) {
   modal2.style.visibility = "hidden";
   photoAdd.style.visibility = "hidden";
 
-  //xMark.removeEventListener('click', closeModal);
   seeModal1.style.display = "none";
   modal = null;
 }
@@ -270,8 +270,6 @@ function nextPage() {
   modal2.style.visibility = "visible";
   photoAdd.style.visibility = "visible";
   dropDown();
-  myButton.classList.remove("buttonToAddActive");
-  myButton.disabled = true;
 }
 function previousPage() {
   //We empty the form on page 2, if needed
@@ -280,7 +278,6 @@ function previousPage() {
   modal2.style.visibility = "hidden";
   photoAdd.style.visibility = "hidden";
 }
-
 //Functions to display the gallery.
 let currentWorkId;
 function tinyGalleryDisplay(portfolia) {
@@ -298,7 +295,6 @@ function tinyGalleryDisplay(portfolia) {
   });
   return;
 }
-
 function insertIcon(container) {
   const svgElement =
     `<svg class="dustbinIcon" id="work` +
@@ -371,11 +367,11 @@ function updateTitle() {
   let realTitle = inputTitle.value;
   if (realTitle === "") {
     alert("Il faut introduire un titre pour la photo");
+    buttonDisable();
   } else {
     fieldCheck();
   }
 }
-
 //Updating the category (first we fill in the options, then update)
 //A function to fill the options of form Select.
 function dropDown() {
@@ -396,24 +392,31 @@ function dropDown() {
   }
 }
 function updateSelect() {
-  let selection = catSelect.options[catSelect.selectedIndex].value;
   let selectText = catSelect.options[catSelect.selectedIndex].text;
   if (selectText === "") {
     alert("Il faut choisir une des trois options réelles.");
+    buttonDisable();
   } else {
     fieldCheck();
   }
 }
 function fieldCheck() {
   let texting = inputTitle.value;
+  console.log("Titulín de la imagen", texting);
   let selecting = catSelect.value;
-  if (keptImage != "" && texting != "" && selecting != "") {
+  console.log("Categoría de la imagen", selecting);
+  let imaging = keptImage;
+  console.log("Ruta de la imagen ", imaging, typeof imaging);
+  if (imaging !== "" && texting !== "" && selecting !== "") {
     buttonActive();
+  } else {
+    buttonDisable();
   }
+
 }
 function buttonActive() {
   let dataToSend = {};
-  myButton.classList.add("buttonToAddActive");
+  myButton.classList.add("buttonToSend");
   myButton.disabled = false;
   //From here we call the async function to POST
   form.addEventListener("submit", (event) => {
@@ -445,6 +448,7 @@ async function sendData(data) {
   } catch (err) {
     console.error(err);
   }
+  buttonDisable();  
 }
 
 function delatable() {
@@ -490,4 +494,9 @@ function workDelete(work) {
   } catch (e) {
     console.error(e);
   }
+}
+
+function buttonDisable() {
+  myButton.classList.remove("buttonToSend");
+  myButton.disabled = true;
 }
