@@ -24,13 +24,13 @@ document.addEventListener('DOMContentLoaded', function () {
             //Different response options
             switch (response.status) {
                 case 500:
-                    alert("Votre utilisateur ou mot de passe n'est pas correct");
+                    alert("Erreur interne du serveur.");
                     break;
                 case 404:
-                    alert("Votre utilisateur ou mot de passe n'est pas correct");
+                    alert("Page introuvable");
                     break;
                 case 401:
-                    alert("Votre utilisateur ou mot de passe n'est pas correct");
+                    alert("Utilisateur non autorisé, veuillez vérifier votre utilisateur et mot de passe.");
                     break;
                 case 200:
                     // Store the token in the local storage (so we can reuse them in the 'admin' calls)
