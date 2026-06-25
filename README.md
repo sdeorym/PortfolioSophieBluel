@@ -1,8 +1,16 @@
 # Portfolio-architecte-sophie-bluel
 
-Code du projet 6 d'intégrateur web.
+## Description
 
-## Information pour le lancer le code
+Portfolio interactif d'une architecte avec filtrage par catégorie et espace d'administration.
 
- - Lancer le backend depuis votre terminal en suivant les instruction du fichier ReadMe.
- - Si vous désirez afficher le code du backend et du frontend, faites le dans 2 instances de VSCode différentes pour éviter tout problème
+Dynamic web application with category-based project filtering and a password-protected admin panel.
+
+## Installation / Lancement
+
+1. Cloner les deux repos (frontend et backend) / Clone both repositories (frontend and backend)
+2. Ouvrir dans deux instances VSCode séparées / Open in two separate VSCode instances
+3. Dans le dossier backend / In the backend folder: `npm install` puis/then `npm start`
+4. Documentation API disponible sur / API documentation available at `http://localhost:5678/api-docs/`
+
+> Identifiants de test disponibles sur demande / Test credentials available on request.
